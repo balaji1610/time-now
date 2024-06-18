@@ -23,6 +23,7 @@ export default function Home() {
   const [currentTimeDate, setCurrentTimeDate] = useState(TimeZoneInfo[0]);
   const [timeZone, setTimeZone] = useState(TimeZoneInfo[0].timeZone);
   const [hover, setHover] = useState<number | null>(0);
+  const [clickedIndex, setClickedIndex] = useState("Chennai");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -84,6 +85,7 @@ export default function Home() {
   const handleOnClick = (item: TimeZoneInfoType) => {
     setCurrentTimeDate(item);
     setTimeZone(item.timeZone);
+    setClickedIndex(item.city);
   };
 
   const MouseEnter = (e: any, index: number) => {
@@ -125,16 +127,21 @@ export default function Home() {
         <Grid>
           {TimeZoneInfo.map((el, index) => {
             const { city, timeZone } = el;
+            const isHovered = hover === index;
+            const isClicked = clickedIndex === city;
             return (
               <span key={index} style={{ marginLeft: "1rem" }}>
                 <div
                   style={{
-                    backgroundColor:
-                      hover == index ? "#999" : "rgb(0 0 0 / 0.1)",
+                    backgroundColor: isClicked
+                      ? "#999999"
+                      : isHovered
+                      ? "#999999"
+                      : "rgb(0 0 0 / 0.1)",
                     display: "inline-flex",
                     flexDirection: "column" as "column",
                     width: "8rem",
-                    color: hover == index ? "white" : "black",
+                    color: isClicked ? "white" : isHovered ? "white" : "black",
                     cursor: "pointer",
                     rowGap: "6px",
                     padding: "10px",
@@ -142,12 +149,14 @@ export default function Home() {
                     fontWeight: "900",
                   }}
                   onMouseEnter={(e) => MouseEnter(e, index)}
-                  onMouseLeave={(e) => MouseLeave()}
+                  onMouseLeave={MouseLeave}
                   onClick={() => handleOnClick(el)}
                   className={Font.city}
                 >
                   <div className={Font.city}> {city}</div>
-                  <div>{currentCity(timeZone)}</div>
+                  <div style={{ fontWeight: "400", fontSize: "18px" }}>
+                    {currentCity(timeZone)}
+                  </div>
                 </div>
               </span>
             );
