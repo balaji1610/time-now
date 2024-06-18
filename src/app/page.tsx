@@ -1,95 +1,159 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
+import TimeZoneInfo from "./utilities/TimeZoneInfo";
+import Font from "../app/page.module.css";
+interface timeOptionsType {
+  timeStyle: "medium" | "full" | "long" | "short";
+  timeZone: string;
+}
+interface DateOptionsType {
+  dateStyle: "medium" | "full" | "long" | "short";
+  timeZone: string;
+}
+
+interface TimeZoneInfoType {
+  city: string;
+  timeZone: string;
+  country: string;
+}
 
 export default function Home() {
+  const [time, setTime] = useState(new Date());
+  const [currentTimeDate, setCurrentTimeDate] = useState(TimeZoneInfo[0]);
+  const [timeZone, setTimeZone] = useState(TimeZoneInfo[0].timeZone);
+  const [hover, setHover] = useState<number | null>(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const Timeoptions = {
+    timeStyle: "medium",
+    timeZone: timeZone,
+  };
+  const cityTime = new Intl.DateTimeFormat(
+    "en-GB",
+    Timeoptions as timeOptionsType
+  ).format(time);
+
+  const DateOptions = {
+    dateStyle: "full",
+    timeZone: timeZone,
+  };
+  const cityDate = new Intl.DateTimeFormat(
+    "en-GB",
+    DateOptions as DateOptionsType
+  ).format(time);
+
+  const timeZoneStyle = {
+    cityTime: {
+      fontSize: "16rem",
+      display: "inline",
+      marginLeft: "13rem",
+      lineHeight: "12rem",
+      color: "#333333",
+    },
+
+    currentCityLayout: {
+      border: "1px solid rgba(0, 0, 0, 0.25)",
+      backgroundColor: "rgb(0 0 0 / 0.1)",
+      display: "inline-flex",
+      flexDirection: "column" as "column",
+      width: "6rem",
+      color: "black",
+    },
+
+    date: {
+      fontWeight: "300",
+      fontSize: "41px",
+    },
+  };
+
+  const currentCity = (city: string) => {
+    return new Intl.DateTimeFormat("en-GB", {
+      timeStyle: "short",
+      timeZone: city,
+    } as timeOptionsType).format(time);
+  };
+
+  const handleOnClick = (item: TimeZoneInfoType) => {
+    setCurrentTimeDate(item);
+    setTimeZone(item.timeZone);
+  };
+
+  const MouseEnter = (e: any, index: number) => {
+    setHover(index);
+  };
+
+  const MouseLeave = () => {
+    setHover(null);
+  };
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div>
+      <Grid container xs={12}>
+        <Grid>
+          <h1
+            className={Font.city}
+            style={{ color: "#757575", fontWeight: "400" }}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+            Time in{" "}
+            <span style={{ color: "black", fontWeight: "900" }}>
+              {currentTimeDate.city}
+            </span>{" "}
+            , {currentTimeDate.country} now
+          </h1>
+          <h1 className={Font.city} style={timeZoneStyle.cityTime}>
+            {cityTime}
+          </h1>
+        </Grid>
+      </Grid>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Grid container direction="row" justifyContent="flex-end" xs={12}>
+        <Grid>
+          <h1 className={Font.city} style={timeZoneStyle.date}>
+            {cityDate}
+          </h1>
+        </Grid>
+      </Grid>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <Grid container direction="row" justifyContent="flex-end" xs={12}>
+        <Grid>
+          {TimeZoneInfo.map((el, index) => {
+            const { city, timeZone } = el;
+            return (
+              <span key={index} style={{ marginLeft: "1rem" }}>
+                <div
+                  style={{
+                    backgroundColor:
+                      hover == index ? "#999" : "rgb(0 0 0 / 0.1)",
+                    display: "inline-flex",
+                    flexDirection: "column" as "column",
+                    width: "8rem",
+                    color: hover == index ? "white" : "black",
+                    cursor: "pointer",
+                    rowGap: "6px",
+                    padding: "10px",
+                    alignItems: "center",
+                    fontWeight: "900",
+                  }}
+                  onMouseEnter={(e) => MouseEnter(e, index)}
+                  onMouseLeave={(e) => MouseLeave()}
+                  onClick={() => handleOnClick(el)}
+                  className={Font.city}
+                >
+                  <div className={Font.city}> {city}</div>
+                  <div>{currentCity(timeZone)}</div>
+                </div>
+              </span>
+            );
+          })}
+        </Grid>
+      </Grid>
+    </div>
   );
 }
