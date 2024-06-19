@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TimeZoneInfo from "./utilities/TimeZoneInfo";
+import GulfTimeZoneInfo from "./utilities/GulfTimeZoneInfo";
 import Font from "../app/page.module.css";
+
 interface timeOptionsType {
   timeStyle: "medium" | "full" | "long" | "short";
   timeZone: string;
@@ -20,10 +22,10 @@ interface TimeZoneInfoType {
 
 export default function Home() {
   const [time, setTime] = useState(new Date());
-  const [currentTimeDate, setCurrentTimeDate] = useState(TimeZoneInfo[0]);
-  const [timeZone, setTimeZone] = useState(TimeZoneInfo[0].timeZone);
+  const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[0]);
+  const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[0].timeZone);
   const [hover, setHover] = useState<number | null>(0);
-  const [clickedIndex, setClickedIndex] = useState("Chennai");
+  const [clickedIndex, setClickedIndex] = useState("Riyadh");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -37,6 +39,7 @@ export default function Home() {
     timeStyle: "medium",
     timeZone: timeZone,
   };
+
   const cityTime = new Intl.DateTimeFormat(
     "en-GB",
     Timeoptions as timeOptionsType
@@ -46,8 +49,14 @@ export default function Home() {
     dateStyle: "full",
     timeZone: timeZone,
   };
+
   const cityDate = new Intl.DateTimeFormat(
     "en-GB",
+    DateOptions as DateOptionsType
+  ).format(time);
+
+  const regionalDate = new Intl.DateTimeFormat(
+    "en-US-u-ca-islamic",
     DateOptions as DateOptionsType
   ).format(time);
 
@@ -71,7 +80,12 @@ export default function Home() {
 
     date: {
       fontWeight: "300",
-      fontSize: "41px",
+      fontSize: "31px",
+    },
+    regionaldate: {
+      fontWeight: "300",
+      fontSize: "20px",
+      color: "#4CAF50",
     },
   };
 
@@ -95,6 +109,7 @@ export default function Home() {
   const MouseLeave = () => {
     setHover(null);
   };
+
   return (
     <div>
       <Grid container xs={12}>
@@ -117,15 +132,18 @@ export default function Home() {
 
       <Grid container direction="row" justifyContent="flex-end" xs={12}>
         <Grid>
-          <h1 className={Font.city} style={timeZoneStyle.date}>
+          <h3 className={Font.city} style={timeZoneStyle.date}>
             {cityDate}
-          </h1>
+          </h3>
+          <h5 className={Font.city} style={timeZoneStyle.regionaldate}>
+            {regionalDate}
+          </h5>
         </Grid>
       </Grid>
 
       <Grid container direction="row" justifyContent="flex-end" xs={12}>
         <Grid>
-          {TimeZoneInfo.map((el, index) => {
+          {GulfTimeZoneInfo.map((el, index) => {
             const { city, timeZone } = el;
             const isHovered = hover === index;
             const isClicked = clickedIndex === city;
