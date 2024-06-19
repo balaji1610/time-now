@@ -1,24 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import TimeZoneInfo from "./utilities/TimeZoneInfo";
 import GulfTimeZoneInfo from "./utilities/GulfTimeZoneInfo";
 import Font from "../app/page.module.css";
-
-interface timeOptionsType {
-  timeStyle: "medium" | "full" | "long" | "short";
-  timeZone: string;
-}
-interface DateOptionsType {
-  dateStyle: "medium" | "full" | "long" | "short";
-  timeZone: string;
-}
-
-interface TimeZoneInfoType {
-  city: string;
-  timeZone: string;
-  country: string;
-}
+import {
+  timeOptionsType,
+  DateOptionsType,
+  TimeZoneInfoType,
+} from "../app/interface/commonInterface";
 
 export default function Home() {
   const [time, setTime] = useState(new Date());
