@@ -8,7 +8,7 @@ import {
   DateOptionsType,
   TimeZoneInfoType,
 } from "../app/interface/commonInterface";
-import PrayerTimeLayout from "./Container/PrayerTimeLayout";
+// import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 
 export default function TimePage() {
@@ -56,12 +56,15 @@ export default function TimePage() {
   const Timeoptions = {
     timeStyle: "medium",
     timeZone: timeZone,
+    hour12: true,
   };
 
   const cityTime = new Intl.DateTimeFormat(
     "en-GB",
     Timeoptions as timeOptionsType
-  ).format(time);
+  )
+    .format(time)
+    .split(" ");
 
   const DateOptions = {
     dateStyle: "full",
@@ -80,7 +83,7 @@ export default function TimePage() {
 
   const timeZoneStyle = {
     cityTime: {
-      fontSize: "10rem",
+      fontSize: "6rem",
       display: "inline",
       marginLeft: "13rem",
       lineHeight: "12rem",
@@ -117,6 +120,7 @@ export default function TimePage() {
     return new Intl.DateTimeFormat("en-GB", {
       timeStyle: "short",
       timeZone: city,
+      hour12: true,
     } as timeOptionsType).format(time);
   };
 
@@ -165,10 +169,10 @@ export default function TimePage() {
             <span style={{ color: "black", fontWeight: "900" }}>
               {currentTimeDate.city}
             </span>{" "}
-            , {currentTimeDate.country} now
+            now
           </h1>
           <h3 className={Font.city} style={timeZoneStyle.cityTime}>
-            {cityTime}
+            {cityTime[0]}&nbsp;{cityTime[1]}
           </h3>
           <h3 className={Font.city} style={timeZoneStyle.date}>
             {cityDate}
@@ -226,8 +230,7 @@ export default function TimePage() {
           </div>
         </Grid>
       </Grid>
-
-      <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} />
+      {/* <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} /> */}
     </div>
   );
 }

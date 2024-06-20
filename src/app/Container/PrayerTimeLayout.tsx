@@ -32,6 +32,18 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
     setCardHover(null);
   };
 
+  const prayerTwelveHourFormat = (time24: string) => {
+    const [hours, minutes] = time24.split(":");
+    const date = new Date();
+    date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+    const hour12 = date.getHours() % 12 || 12;
+    const minute = date.getMinutes();
+    const period = date.getHours() >= 12 ? "pm" : "am";
+    const hourString = hour12.toString().padStart(2, "0");
+    const minuteString = minute.toString().padStart(2, "0");
+    return `${hourString}:${minuteString} ${period}`;
+  };
+
   return (
     <div>
       <Grid container direction="row" justifyContent="center" xs={12}>
@@ -42,7 +54,6 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
           </>
         </Grid>
       </Grid>
-
       <div>
         {isNotDisplayPrayerTime ? (
           <div>
@@ -91,7 +102,7 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
                         onMouseLeave={CardMouseLeave}
                       >
                         <div style={{ fontWeight: "900" }}>{item.slot}</div>
-                        <div>{item.time}</div>
+                        <div>{prayerTwelveHourFormat(item.time)}</div>
                       </div>
                     </span>
                   );
