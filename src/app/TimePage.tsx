@@ -158,6 +158,7 @@ export default function TimePage() {
           </h1>
         </Grid>
       </Grid>
+
       <Grid container direction="row" justifyContent="flex-end" xs={12}>
         <Grid>
           <h3 className={Font.city} style={timeZoneStyle.date}>
