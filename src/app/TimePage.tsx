@@ -27,8 +27,6 @@ export default function TimePage() {
         `http://api.aladhan.com/v1/timingsByAddress?address=${currentCity}`
       );
       const reponse = await getFetchapi.json();
-      console.log(reponse);
-
       if (reponse.code == "200") {
         setPrayerTime(reponse.data.timings);
       } else {
@@ -36,7 +34,6 @@ export default function TimePage() {
         setPrayerTime([]);
         setIsNotDisplayPrayerTime(true);
       }
-
       setLoading(false);
     } catch (error) {
       setLoading(false);
