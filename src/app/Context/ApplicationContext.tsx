@@ -8,8 +8,8 @@ import React, {
 } from "react";
 
 interface ApplicationContextType {
-  currentCityName: string;
-  setCurrentCityName: Dispatch<SetStateAction<string>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -21,13 +21,13 @@ interface ContextProps {
 }
 
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
-  const [currentCityName, setCurrentCityName] = useState<string>("Riyadh");
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <ApplicationContext.Provider
       value={{
-        currentCityName,
-        setCurrentCityName,
+        loading,
+        setLoading,
       }}
     >
       {children}

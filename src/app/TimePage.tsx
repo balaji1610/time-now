@@ -8,14 +8,34 @@ import {
   DateOptionsType,
   TimeZoneInfoType,
 } from "../app/interface/commonInterface";
+import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[0]);
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[0].timeZone);
   const [hover, setHover] = useState<number | null>(0);
-  const [clickedIndex, setClickedIndex] = useState("Riyadh");
-  const { currentCityName, setCurrentCityName } = useApplicationContext();
+  const [currentCity, setCurrentCity] = useState("Riyadh");
+  const [prayertime, setPrayerTime] = useState([]);
+  const { setLoading } = useApplicationContext();
+
+  const fetchapi = async () => {
+    try {
+      setLoading(true);
+      const getFetchapi = await fetch(
+        `http://api.aladhan.com/v1/timingsByAddress?address=${currentCity}`
+      );
+      const getData = await getFetchapi.json();
+      setPrayerTime(getData.data.timings);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchapi();
+  }, [currentCity, setCurrentCity]);
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(new Date());
@@ -78,7 +98,7 @@ export default function TimePage() {
     },
   };
 
-  const currentCity = (city: string) => {
+  const currentCityTime = (city: string) => {
     return new Intl.DateTimeFormat("en-GB", {
       timeStyle: "short",
       timeZone: city,
@@ -88,7 +108,7 @@ export default function TimePage() {
   const handleOnClick = (item: TimeZoneInfoType) => {
     setCurrentTimeDate(item);
     setTimeZone(item.timeZone);
-    setClickedIndex(item.city);
+    setCurrentCity(item.city);
   };
 
   const MouseEnter = (e: any, index: number) => {
@@ -99,15 +119,34 @@ export default function TimePage() {
     setHover(null);
   };
 
+  const preparePrayerTimes = Object.entries(prayertime)
+    .map(([key, value]) => {
+      const prayerTimeSlot = [
+        "Fajr",
+        "Sunrise",
+        "Duhur",
+        "Asr",
+        "Maghrib",
+        "Isha",
+      ];
+      if (prayerTimeSlot.includes(key)) {
+        return {
+          ["slot"]: key,
+          ["time"]: value,
+        };
+      }
+    })
+    .filter((el) => el != undefined);
+
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <Grid container xs={12}>
         <Grid>
           <h1
             className={Font.city}
             style={{ color: "#757575", fontWeight: "400" }}
           >
-            Time in
+            Time in&nbsp;
             <span style={{ color: "black", fontWeight: "900" }}>
               {currentTimeDate.city}
             </span>{" "}
@@ -134,7 +173,7 @@ export default function TimePage() {
           {GulfTimeZoneInfo.map((el, index) => {
             const { city, timeZone } = el;
             const isHovered = hover === index;
-            const isClicked = clickedIndex === city;
+            const isClicked = currentCity === city;
             return (
               <span key={index} style={{ marginLeft: "1rem" }}>
                 <div
@@ -161,7 +200,7 @@ export default function TimePage() {
                 >
                   <div className={Font.city}> {city}</div>
                   <div style={{ fontWeight: "400", fontSize: "18px" }}>
-                    {currentCity(timeZone)}
+                    {currentCityTime(timeZone)}
                   </div>
                 </div>
               </span>
@@ -169,6 +208,7 @@ export default function TimePage() {
           })}
         </Grid>
       </Grid>
+      <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} />
     </div>
   );
 }

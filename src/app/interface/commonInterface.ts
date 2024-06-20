@@ -12,3 +12,8 @@ export interface TimeZoneInfoType {
   timeZone: string;
   country: string;
 }
+
+export interface PrayerTimeInfoType {
+  slot: any;
+  time: any;
+}
