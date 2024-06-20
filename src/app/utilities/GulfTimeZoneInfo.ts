@@ -30,6 +30,24 @@ const GulfTimeZoneInfo = [
     timeZone: "Asia/Muscat",
     country: "Oman",
   },
+
+  {
+    city: "Mumbai",
+    timeZone: "Asia/Kolkata",
+    country: "India",
+  },
+
+  {
+    city: "London",
+    timeZone: "Europe/London",
+    country: "United Kingdom",
+  },
+
+  {
+    city: "Paris",
+    timeZone: "Europe/Paris",
+    country: "France",
+  },
 ];
 
 export default GulfTimeZoneInfo;

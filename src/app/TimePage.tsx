@@ -82,14 +82,23 @@ export default function TimePage() {
   ).format(time);
 
   const timeZoneStyle = {
-    cityTime: {
-      fontSize: "6rem",
-      display: "inline",
-      marginLeft: "13rem",
-      lineHeight: "12rem",
-      color: "#333333",
+    cityFlex: {
+      display: "flex",
+      flexDirection: "row" as "row",
+      justifyContent: "center",
     },
-
+    cityTime: {
+      fontSize: "10rem",
+      display: "inline",
+      lineHeight: "11rem",
+      color: "#333333",
+      width: "49rem",
+    },
+    hourFormat: {
+      fontSize: "5rem",
+      marginTop: "88px",
+      marginLeft: "9px",
+    },
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
@@ -108,11 +117,20 @@ export default function TimePage() {
     date: {
       fontWeight: "300",
       fontSize: "25px",
+      display: "inline",
     },
     regionaldate: {
       fontWeight: "600",
-      fontSize: "15px",
-      color: "#4CAF50",
+      fontSize: "16px",
+      color: "rgb(153, 153, 153)",
+    },
+
+    dateLayout: {
+      display: "inline-flex",
+      flexDirection: "column" as "column",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      width: "20rem",
     },
   };
 
@@ -121,7 +139,9 @@ export default function TimePage() {
       timeStyle: "short",
       timeZone: city,
       hour12: true,
-    } as timeOptionsType).format(time);
+    } as timeOptionsType)
+      .format(time)
+      .split(" ");
   };
 
   const handleOnClick = (item: TimeZoneInfoType) => {
@@ -161,25 +181,35 @@ export default function TimePage() {
     <div style={{ overflow: "hidden" }}>
       <Grid container xs={12}>
         <Grid xs={8}>
-          <h1
+          <h2
             className={Font.city}
-            style={{ color: "#757575", fontWeight: "400" }}
+            style={{ color: "#757575", fontWeight: "400", textAlign: "center" }}
           >
             Time in&nbsp;
             <span style={{ color: "black", fontWeight: "900" }}>
               {currentTimeDate.city}
             </span>{" "}
             now
-          </h1>
-          <h3 className={Font.city} style={timeZoneStyle.cityTime}>
-            {cityTime[0]}&nbsp;{cityTime[1]}
-          </h3>
-          <h3 className={Font.city} style={timeZoneStyle.date}>
-            {cityDate}
-          </h3>
-          <h5 className={Font.city} style={timeZoneStyle.regionaldate}>
-            {regionalDate}
-          </h5>
+          </h2>
+
+          <div className={Font.hourfont} style={timeZoneStyle.cityFlex}>
+            {" "}
+            <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
+            <div style={timeZoneStyle.hourFormat}>
+              {cityTime[1].toUpperCase()}
+            </div>
+          </div>
+
+          <div className={Font.city} style={timeZoneStyle.dateLayout}>
+            <div>
+              {" "}
+              <h3 style={timeZoneStyle.date}>{cityDate}</h3>
+            </div>
+            <div>
+              {" "}
+              <h5 style={timeZoneStyle.regionaldate}>{regionalDate}</h5>
+            </div>
+          </div>
         </Grid>
         <Grid xs={4}>
           <div style={timeZoneStyle.currentCityParentCard}>
@@ -220,7 +250,8 @@ export default function TimePage() {
                     >
                       <div className={Font.city}> {city}</div>
                       <div style={{ fontWeight: "400", fontSize: "18px" }}>
-                        {currentCityTime(timeZone)}
+                        {currentCityTime(timeZone)[0]}&nbsp;
+                        {currentCityTime(timeZone)[1].toUpperCase()}
                       </div>
                     </div>
                   </span>

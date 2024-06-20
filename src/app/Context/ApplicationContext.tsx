@@ -26,7 +26,7 @@ interface ContextProps {
 
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [currentCity, setCurrentCity] = useState("Riyadh");
+  const [currentCity, setCurrentCity] = useState("Dubai");
   const [isNotDisplayPrayerTime, setIsNotDisplayPrayerTime] =
     useState<boolean>(false);
   return (
