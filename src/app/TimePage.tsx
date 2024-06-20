@@ -10,14 +10,14 @@ import {
 } from "../app/interface/commonInterface";
 import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
+
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[0]);
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[0].timeZone);
-  const [hover, setHover] = useState<number | null>(0);
-  const [currentCity, setCurrentCity] = useState("Riyadh");
+  const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
-  const { setLoading } = useApplicationContext();
+  const { setLoading, currentCity, setCurrentCity } = useApplicationContext();
 
   const fetchapi = async () => {
     try {
@@ -36,6 +36,7 @@ export default function TimePage() {
   useEffect(() => {
     fetchapi();
   }, [currentCity, setCurrentCity]);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(new Date());
@@ -124,7 +125,7 @@ export default function TimePage() {
       const prayerTimeSlot = [
         "Fajr",
         "Sunrise",
-        "Duhur",
+        "Dhuhr",
         "Asr",
         "Maghrib",
         "Isha",
@@ -167,7 +168,6 @@ export default function TimePage() {
           </h5>
         </Grid>
       </Grid>
-
       <Grid container direction="row" justifyContent="flex-end" xs={12}>
         <Grid>
           {GulfTimeZoneInfo.map((el, index) => {
