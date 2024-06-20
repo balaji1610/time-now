@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import Font from "@/app/page.module.css";
 
 export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
-  const { loading, currentCity } = useApplicationContext();
+  const { loading, currentCity, isNotDisplayPrayerTime } =
+    useApplicationContext();
   const [CardHover, setCardHover] = useState<number | null>(null);
 
   const PrayerTimeLayoutStyles = {
@@ -41,45 +42,62 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
           </>
         </Grid>
       </Grid>
+
       <div>
-        {loading ? (
-          <div style={PrayerTimeLayoutStyles.loading}>
-            <CircularProgress />
+        {isNotDisplayPrayerTime ? (
+          <div>
+            {" "}
+            <Grid container direction="row" justifyContent="center" xs={12}>
+              <Grid>
+                <>
+                  {" "}
+                  <h3>NOT Display Prayer Times</h3>
+                </>
+              </Grid>
+            </Grid>
           </div>
         ) : (
-          <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
-            {preparePrayerTimes.map((item: any, index: number) => {
-              return (
-                <span key={index} style={{ marginLeft: "1rem" }}>
-                  {" "}
-                  <div
-                    style={{
-                      backgroundColor: "white",
-                      border:
-                        CardHover == index
-                          ? "2px solid #0288D1"
-                          : "1px solid #00000029",
-                      display: "inline-flex",
-                      flexDirection: "column" as "column",
-                      width: "8rem",
-                      color: "#000000",
-                      cursor: "pointer",
-                      rowGap: "8px",
-                      padding: "18px",
-                      alignItems: "center",
-                      height: "4rem",
-                      fontSize: "20px",
-                    }}
-                    className={Font.city}
-                    onMouseEnter={(e) => CardMouseEnter(e, index)}
-                    onMouseLeave={CardMouseLeave}
-                  >
-                    <div style={{ fontWeight: "900" }}>{item.slot}</div>
-                    <div>{item.time}</div>
-                  </div>
-                </span>
-              );
-            })}
+          <div>
+            {loading ? (
+              <div style={PrayerTimeLayoutStyles.loading}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
+                {preparePrayerTimes.map((item: any, index: number) => {
+                  return (
+                    <span key={index} style={{ marginLeft: "1rem" }}>
+                      {" "}
+                      <div
+                        style={{
+                          backgroundColor: "white",
+                          border:
+                            CardHover == index
+                              ? "2px solid #0288D1"
+                              : "1px solid #00000029",
+                          display: "inline-flex",
+                          flexDirection: "column" as "column",
+                          width: "8rem",
+                          color: "#000000",
+                          cursor: "pointer",
+                          rowGap: "8px",
+                          padding: "18px",
+                          alignItems: "center",
+                          height: "4rem",
+                          fontSize: "20px",
+                        }}
+                        className={Font.city}
+                        onMouseEnter={(e) => CardMouseEnter(e, index)}
+                        onMouseLeave={CardMouseLeave}
+                      >
+                        <div style={{ fontWeight: "900" }}>{item.slot}</div>
+                        <div>{item.time}</div>
+                      </div>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
       </div>

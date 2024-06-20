@@ -17,7 +17,8 @@ export default function TimePage() {
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[0].timeZone);
   const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
-  const { setLoading, currentCity, setCurrentCity } = useApplicationContext();
+  const { setLoading, currentCity, setCurrentCity, setIsNotDisplayPrayerTime } =
+    useApplicationContext();
 
   const fetchapi = async () => {
     try {
@@ -25,10 +26,20 @@ export default function TimePage() {
       const getFetchapi = await fetch(
         `http://api.aladhan.com/v1/timingsByAddress?address=${currentCity}`
       );
-      const getData = await getFetchapi.json();
-      setPrayerTime(getData.data.timings);
+      const reponse = await getFetchapi.json();
+      console.log(reponse);
+
+      if (reponse.code == "200") {
+        setPrayerTime(reponse.data.timings);
+      } else {
+        setLoading(false);
+        setPrayerTime([]);
+        setIsNotDisplayPrayerTime(true);
+      }
+
       setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -120,7 +131,7 @@ export default function TimePage() {
     setHover(null);
   };
 
-  const preparePrayerTimes = Object.entries(prayertime)
+  const preparePrayerTimes = Object?.entries(prayertime)
     .map(([key, value]) => {
       const prayerTimeSlot = [
         "Fajr",

@@ -12,6 +12,8 @@ interface ApplicationContextType {
   setLoading: Dispatch<SetStateAction<boolean>>;
   currentCity: string;
   setCurrentCity: Dispatch<SetStateAction<string>>;
+  isNotDisplayPrayerTime: boolean;
+  setIsNotDisplayPrayerTime: Dispatch<SetStateAction<boolean>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -25,6 +27,8 @@ interface ContextProps {
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [currentCity, setCurrentCity] = useState("Riyadh");
+  const [isNotDisplayPrayerTime, setIsNotDisplayPrayerTime] =
+    useState<boolean>(false);
   return (
     <ApplicationContext.Provider
       value={{
@@ -32,6 +36,8 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         setLoading,
         currentCity,
         setCurrentCity,
+        isNotDisplayPrayerTime,
+        setIsNotDisplayPrayerTime,
       }}
     >
       {children}
