@@ -80,13 +80,19 @@ export default function TimePage() {
 
   const timeZoneStyle = {
     cityTime: {
-      fontSize: "16rem",
+      fontSize: "10rem",
       display: "inline",
       marginLeft: "13rem",
       lineHeight: "12rem",
       color: "#333333",
     },
 
+    currentCityParentCard: {
+      display: "flex",
+      flexDirection: "row" as "row",
+      height: "20rem",
+      alignItems: "center",
+    },
     currentCityLayout: {
       border: "1px solid rgba(0, 0, 0, 0.25)",
       backgroundColor: "rgb(0 0 0 / 0.1)",
@@ -98,11 +104,11 @@ export default function TimePage() {
 
     date: {
       fontWeight: "300",
-      fontSize: "31px",
+      fontSize: "25px",
     },
     regionaldate: {
-      fontWeight: "300",
-      fontSize: "20px",
+      fontWeight: "600",
+      fontSize: "15px",
       color: "#4CAF50",
     },
   };
@@ -150,7 +156,7 @@ export default function TimePage() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Grid container xs={12}>
-        <Grid>
+        <Grid xs={8}>
           <h1
             className={Font.city}
             style={{ color: "#757575", fontWeight: "400" }}
@@ -161,14 +167,9 @@ export default function TimePage() {
             </span>{" "}
             , {currentTimeDate.country} now
           </h1>
-          <h1 className={Font.city} style={timeZoneStyle.cityTime}>
+          <h3 className={Font.city} style={timeZoneStyle.cityTime}>
             {cityTime}
-          </h1>
-        </Grid>
-      </Grid>
-
-      <Grid container direction="row" justifyContent="flex-end" xs={12}>
-        <Grid>
+          </h3>
           <h3 className={Font.city} style={timeZoneStyle.date}>
             {cityDate}
           </h3>
@@ -176,47 +177,56 @@ export default function TimePage() {
             {regionalDate}
           </h5>
         </Grid>
-      </Grid>
-      <Grid container direction="row" justifyContent="flex-end" xs={12}>
-        <Grid>
-          {GulfTimeZoneInfo.map((el, index) => {
-            const { city, timeZone } = el;
-            const isHovered = hover === index;
-            const isClicked = currentCity === city;
-            return (
-              <span key={index} style={{ marginLeft: "1rem" }}>
-                <div
-                  style={{
-                    backgroundColor: isClicked
-                      ? "#999999"
-                      : isHovered
-                      ? "#999999"
-                      : "rgb(0 0 0 / 0.1)",
-                    display: "inline-flex",
-                    flexDirection: "column" as "column",
-                    width: "8rem",
-                    color: isClicked ? "white" : isHovered ? "white" : "black",
-                    cursor: "pointer",
-                    rowGap: "6px",
-                    padding: "10px",
-                    alignItems: "center",
-                    fontWeight: "900",
-                  }}
-                  onMouseEnter={(e) => MouseEnter(e, index)}
-                  onMouseLeave={MouseLeave}
-                  onClick={() => handleOnClick(el)}
-                  className={Font.city}
-                >
-                  <div className={Font.city}> {city}</div>
-                  <div style={{ fontWeight: "400", fontSize: "18px" }}>
-                    {currentCityTime(timeZone)}
-                  </div>
-                </div>
-              </span>
-            );
-          })}
+        <Grid xs={4}>
+          <div style={timeZoneStyle.currentCityParentCard}>
+            <div>
+              {" "}
+              {GulfTimeZoneInfo.map((el, index) => {
+                const { city, timeZone } = el;
+                const isHovered = hover === index;
+                const isClicked = currentCity === city;
+                return (
+                  <span key={index}>
+                    <div
+                      style={{
+                        backgroundColor: isClicked
+                          ? "#999999"
+                          : isHovered
+                          ? "#999999"
+                          : "rgb(0 0 0 / 0.1)",
+                        display: "inline-flex",
+                        flexDirection: "column" as "column",
+                        width: "6rem",
+                        color: isClicked
+                          ? "white"
+                          : isHovered
+                          ? "white"
+                          : "black",
+                        cursor: "pointer",
+                        rowGap: "6px",
+                        padding: "10px",
+                        alignItems: "center",
+                        fontWeight: "900",
+                        margin: "1rem",
+                      }}
+                      onMouseEnter={(e) => MouseEnter(e, index)}
+                      onMouseLeave={MouseLeave}
+                      onClick={() => handleOnClick(el)}
+                      className={Font.city}
+                    >
+                      <div className={Font.city}> {city}</div>
+                      <div style={{ fontWeight: "400", fontSize: "18px" }}>
+                        {currentCityTime(timeZone)}
+                      </div>
+                    </div>
+                  </span>
+                );
+              })}
+            </div>
+          </div>
         </Grid>
       </Grid>
+
       <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} />
     </div>
   );
