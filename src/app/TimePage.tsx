@@ -102,8 +102,7 @@ export default function TimePage() {
     },
     hourFormat: {
       fontSize: "5rem",
-      marginTop: "88px",
-      marginLeft: "9px",
+      marginTop: "32px",
     },
     currentCityParentCard: {
       display: "flex",
