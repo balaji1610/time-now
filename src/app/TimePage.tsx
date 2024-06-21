@@ -10,7 +10,7 @@ import {
 } from "../app/interface/commonInterface";
 // import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
-
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
@@ -80,19 +80,24 @@ export default function TimePage() {
   const regionalDate = new Intl.DateTimeFormat(
     "en-US-u-ca-islamic",
     DateOptions as DateOptionsType
-  ).format(time);
+  )
+    .format(time)
+    .split(",")
+    .slice(1, 3)
+    .join(",");
 
   const timeZoneStyle = {
     cityFlex: {
       display: "flex",
       flexDirection: "row" as "row",
       justifyContent: "center",
+      color: "#393E46",
     },
     cityTime: {
       fontSize: "10rem",
       display: "inline",
       lineHeight: "11rem",
-      color: "#333333",
+
       width: "49rem",
     },
     hourFormat: {
@@ -119,12 +124,12 @@ export default function TimePage() {
       fontWeight: "600",
       fontSize: "25px",
       display: "inline",
-      color: "rgb(153, 153, 153)",
     },
     regionaldate: {
       fontWeight: "500",
       fontSize: "16px",
-      color: "rgb(153, 153, 153)",
+      display: "inline",
+      marginRight: "53px",
     },
 
     dateLayout: {
@@ -133,6 +138,8 @@ export default function TimePage() {
       justifyContent: "flex-start",
       alignItems: "center",
       width: "20rem",
+      rowGap: "1rem",
+      color: "#393E46",
     },
   };
 
@@ -180,15 +187,35 @@ export default function TimePage() {
     .filter((el) => el != undefined);
 
   return (
-    <div style={{ overflow: "hidden" }}>
-      <Grid container xs={12}>
+    <div>
+      <Grid
+        container
+        xs={12}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        height="5rem"
+        width="6%"
+      >
+        <Grid>
+          <MenuRoundedIcon fontSize="large" sx={{ cursor: "pointer" }} />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        xs={12}
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        height="27rem"
+      >
         <Grid xs={8}>
           <h2
             className={Font.city}
-            style={{ color: "#757575", fontWeight: "400", textAlign: "center" }}
+            style={{ color: "#393E46", fontWeight: "400", textAlign: "center" }}
           >
             Time in&nbsp;
-            <span style={{ color: "black", fontWeight: "900" }}>
+            <span style={{ color: "#393E46", fontWeight: "900" }}>
               {currentTimeDate.city}
             </span>{" "}
             now
@@ -227,7 +254,7 @@ export default function TimePage() {
                           ? "#999999"
                           : isHovered
                           ? "#999999"
-                          : "rgb(0 0 0 / 0.1)",
+                          : "#EEEEEE",
                         display: "inline-flex",
                         flexDirection: "column" as "column",
                         width: "6rem",
@@ -235,7 +262,7 @@ export default function TimePage() {
                           ? "white"
                           : isHovered
                           ? "white"
-                          : "black",
+                          : "#393E46",
                         cursor: "pointer",
                         rowGap: "6px",
                         padding: "10px",
@@ -246,10 +273,12 @@ export default function TimePage() {
                       onMouseEnter={(e) => MouseEnter(e, index)}
                       onMouseLeave={MouseLeave}
                       onClick={() => handleOnClick(el)}
-                      className={Font.city}
                     >
                       <div className={Font.city}> {city}</div>
-                      <div style={{ fontWeight: "400", fontSize: "18px" }}>
+                      <div
+                        className={Font.hourfont}
+                        style={{ fontWeight: "400", fontSize: "18px" }}
+                      >
                         {currentCityTime(timeZone)[0]}&nbsp;
                         {currentCityTime(timeZone)[1].toUpperCase()}
                       </div>

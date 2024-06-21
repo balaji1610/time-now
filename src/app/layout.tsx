@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ backgroundColor: "#F7F7F7" }}>
         <main>{children}</main>
       </body>
     </html>
