@@ -13,10 +13,11 @@ import { useApplicationContext } from "@/app/Context/ApplicationContext";
 
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
-  const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[0]);
-  const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[0].timeZone);
+  const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
+  const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
   const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
+
   const { setLoading, currentCity, setCurrentCity, setIsNotDisplayPrayerTime } =
     useApplicationContext();
 
@@ -115,12 +116,13 @@ export default function TimePage() {
     },
 
     date: {
-      fontWeight: "300",
+      fontWeight: "600",
       fontSize: "25px",
       display: "inline",
+      color: "rgb(153, 153, 153)",
     },
     regionaldate: {
-      fontWeight: "600",
+      fontWeight: "500",
       fontSize: "16px",
       color: "rgb(153, 153, 153)",
     },
@@ -191,7 +193,6 @@ export default function TimePage() {
             </span>{" "}
             now
           </h2>
-
           <div className={Font.hourfont} style={timeZoneStyle.cityFlex}>
             {" "}
             <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
@@ -199,7 +200,6 @@ export default function TimePage() {
               {cityTime[1].toUpperCase()}
             </div>
           </div>
-
           <div className={Font.city} style={timeZoneStyle.dateLayout}>
             <div>
               {" "}
