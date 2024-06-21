@@ -11,12 +11,14 @@ import {
 // import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import useMediaQuery from "@mui/material/useMediaQuery";
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
   const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
+  const isdeskopScreen = useMediaQuery("(min-width:600px)");
 
   const { setLoading, currentCity, setCurrentCity, setIsNotDisplayPrayerTime } =
     useApplicationContext();
@@ -94,20 +96,24 @@ export default function TimePage() {
       color: "#393E46",
     },
     cityTime: {
-      fontSize: "10rem",
+      fontSize: isdeskopScreen ? "10rem" : "4rem",
       display: "inline",
-      lineHeight: "11rem",
-
+      lineHeight: isdeskopScreen ? "11rem" : "6rem",
       width: "49rem",
     },
     hourFormat: {
-      fontSize: "5rem",
-      marginTop: "32px",
+      fontSize: isdeskopScreen ? "5rem" : "2rem",
+      display: "flex",
+      flexDirection: "column" as "column",
+      height: isdeskopScreen ? "12rem" : "6rem",
+      alignItems: "center",
+      justifyContent: "center",
+      width: isdeskopScreen ? "auto" : "100%",
     },
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
-      height: "20rem",
+      height: isdeskopScreen ? "20rem" : "40rem",
       alignItems: "center",
     },
     currentCityLayout: {
@@ -130,12 +136,12 @@ export default function TimePage() {
       display: "inline",
       marginRight: "53px",
     },
-
     dateLayout: {
       display: "inline-flex",
       flexDirection: "column" as "column",
-      justifyContent: "flex-start",
+      justifyContent: isdeskopScreen ? "flex-start" : "center",
       alignItems: "center",
+      height: "6rem",
       width: "20rem",
       rowGap: "1rem",
       color: "#393E46",
@@ -208,7 +214,7 @@ export default function TimePage() {
         alignItems="center"
         height="27rem"
       >
-        <Grid xs={8}>
+        <Grid xs={isdeskopScreen ? 8 : 12}>
           <h2
             className={Font.city}
             style={{ color: "#393E46", fontWeight: "400", textAlign: "center" }}
@@ -237,7 +243,7 @@ export default function TimePage() {
             </div>
           </div>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={isdeskopScreen ? 4 : 12}>
           <div style={timeZoneStyle.currentCityParentCard}>
             <div>
               {" "}
@@ -264,7 +270,7 @@ export default function TimePage() {
                           : "#393E46",
                         cursor: "pointer",
                         rowGap: "6px",
-                        padding: "10px",
+                        padding: isdeskopScreen ? "10px" : "22px",
                         alignItems: "center",
                         fontWeight: "900",
                         margin: "1rem",
