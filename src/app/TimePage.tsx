@@ -230,7 +230,7 @@ export default function TimePage() {
       [x: string]: string;
     } = {
       Home: "/",
-      PrayerTime: "./PrayerTime",
+      PrayerTime: `./PrayerTime/${currentCity}`,
     };
     router.push(routering[currentRoute as string]);
   };
@@ -242,7 +242,8 @@ export default function TimePage() {
       <List>
         {["Home", "PrayerTime"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton onClick={() => handleRouting(text)}>
+            <ListItemButton>
+            {/* onClick={() => handleRouting(text)} */}
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
