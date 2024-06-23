@@ -12,13 +12,28 @@ import {
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Link from "next/link";
+
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/navigation";
+
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
   const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
-  const isdeskopScreen = useMediaQuery("(min-width:600px)");
+  const isDesktopScreen = useMediaQuery("(min-width:600px)");
 
   const { setLoading, currentCity, setCurrentCity, setIsNotDisplayPrayerTime } =
     useApplicationContext();
@@ -96,24 +111,25 @@ export default function TimePage() {
       color: "#393E46",
     },
     cityTime: {
-      fontSize: isdeskopScreen ? "10rem" : "4rem",
-      display: "inline",
-      lineHeight: isdeskopScreen ? "11rem" : "6rem",
-      width: "49rem",
+      fontSize: isDesktopScreen ? "10rem" : "4rem",
+      display: "flex",
+      lineHeight: isDesktopScreen ? "11rem" : "6rem",
+      flexDirection: "row" as "row",
+      justifyContent: isDesktopScreen ? "center" : "flex-end",
     },
     hourFormat: {
-      fontSize: isdeskopScreen ? "5rem" : "2rem",
+      fontSize: isDesktopScreen ? "5rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
-      height: isdeskopScreen ? "12rem" : "6rem",
-      alignItems: "center",
+      height: isDesktopScreen ? "12rem" : "6rem",
+      alignItems: isDesktopScreen ? "center" : "flex-start",
       justifyContent: "center",
-      width: isdeskopScreen ? "auto" : "100%",
+      width: isDesktopScreen ? "auto" : "100%",
     },
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
-      height: isdeskopScreen ? "20rem" : "40rem",
+      height: isDesktopScreen ? "20rem" : "46rem",
       alignItems: "center",
     },
     currentCityLayout: {
@@ -139,11 +155,18 @@ export default function TimePage() {
     dateLayout: {
       display: "inline-flex",
       flexDirection: "column" as "column",
-      justifyContent: isdeskopScreen ? "flex-start" : "center",
+      justifyContent: isDesktopScreen ? "flex-start" : "center",
       alignItems: "center",
       height: "6rem",
       width: "20rem",
       rowGap: "1rem",
+      color: "#393E46",
+    },
+
+    hourFormatGrid: {
+      display: "grid",
+      gridTemplateColumns: isDesktopScreen ? "91%  6%" : "80%  20%",
+      columnGap: "10px",
       color: "#393E46",
     },
   };
@@ -190,7 +213,47 @@ export default function TimePage() {
       }
     })
     .filter((el) => el != undefined);
+  const router = useRouter();
+  const [isSidbar, setIsSidebar] = useState<boolean>(false);
 
+  const [open, setOpen] = useState(false);
+
+  const openSidebar = () => {
+    setOpen(true);
+  };
+  const closeSidebar = () => {
+    setOpen(false);
+  };
+
+  const handleRouting = (currentRoute: string) => {
+    const routering: {
+      [x: string]: string;
+    } = {
+      Home: "/",
+      PrayerTime: "./PrayerTime",
+    };
+    router.push(routering[currentRoute as string]);
+  };
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation">
+      <div onClick={closeSidebar}>
+        <CloseIcon fontSize="large" sx={{ cursor: "pointer" }} />
+      </div>
+      <List>
+        {["Home", "PrayerTime"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton onClick={() => handleRouting(text)}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+    </Box>
+  );
   return (
     <div>
       <Grid
@@ -203,9 +266,16 @@ export default function TimePage() {
         width="6%"
       >
         <Grid>
-          <MenuRoundedIcon fontSize="large" sx={{ cursor: "pointer" }} />
+          <MenuRoundedIcon
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+            onClick={openSidebar}
+          />
         </Grid>
       </Grid>
+      <Drawer open={open} onClose={closeSidebar}>
+        {DrawerList}
+      </Drawer>
       <Grid
         container
         xs={12}
@@ -214,7 +284,7 @@ export default function TimePage() {
         alignItems="center"
         height="27rem"
       >
-        <Grid xs={isdeskopScreen ? 8 : 12}>
+        <Grid xs={isDesktopScreen ? 8 : 12}>
           <h2
             className={Font.city}
             style={{ color: "#393E46", fontWeight: "400", textAlign: "center" }}
@@ -225,13 +295,20 @@ export default function TimePage() {
             </span>{" "}
             now
           </h2>
-          <div className={Font.hourfont} style={timeZoneStyle.cityFlex}>
+          {/* <div className={Font.hourfont} style={timeZoneStyle.cityFlex}>
             {" "}
             <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
             <div style={timeZoneStyle.hourFormat}>
               {cityTime[1].toUpperCase()}
             </div>
+          </div> */}
+          <div className={Font.hourfont} style={timeZoneStyle.hourFormatGrid}>
+            <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
+            <div style={timeZoneStyle.hourFormat}>
+              {cityTime[1].toUpperCase()}
+            </div>
           </div>
+
           <div className={Font.city} style={timeZoneStyle.dateLayout}>
             <div>
               {" "}
@@ -243,7 +320,7 @@ export default function TimePage() {
             </div>
           </div>
         </Grid>
-        <Grid xs={isdeskopScreen ? 4 : 12}>
+        <Grid xs={isDesktopScreen ? 4 : 12}>
           <div style={timeZoneStyle.currentCityParentCard}>
             <div>
               {" "}
@@ -270,7 +347,7 @@ export default function TimePage() {
                           : "#393E46",
                         cursor: "pointer",
                         rowGap: "6px",
-                        padding: isdeskopScreen ? "10px" : "22px",
+                        padding: isDesktopScreen ? "10px" : "28px",
                         alignItems: "center",
                         fontWeight: "900",
                         margin: "1rem",
@@ -295,6 +372,7 @@ export default function TimePage() {
           </div>
         </Grid>
       </Grid>
+
       {/* <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} /> */}
     </div>
   );
