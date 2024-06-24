@@ -112,7 +112,7 @@ export default function TimePage() {
     cityTime: {
       fontSize: isDesktopScreen ? "10rem" : "4rem",
       display: "flex",
-      lineHeight: isDesktopScreen ? "11rem" : "6rem",
+      lineHeight: isDesktopScreen ? "11rem" : "8rem",
       flexDirection: "row" as "row",
       justifyContent: isDesktopScreen ? "center" : "flex-end",
     },
@@ -120,7 +120,7 @@ export default function TimePage() {
       fontSize: isDesktopScreen ? "5rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
-      height: isDesktopScreen ? "12rem" : "6rem",
+      height: isDesktopScreen ? "12rem" : "8rem",
       alignItems: isDesktopScreen ? "center" : "flex-start",
       justifyContent: "center",
       width: isDesktopScreen ? "auto" : "100%",
@@ -149,7 +149,7 @@ export default function TimePage() {
       fontWeight: "500",
       fontSize: "16px",
       display: "inline",
-      marginRight: "53px",
+      marginRight: isDesktopScreen ? "83px" : "6px",
     },
     dateLayout: {
       display: "inline-flex",
@@ -157,7 +157,7 @@ export default function TimePage() {
       justifyContent: isDesktopScreen ? "flex-start" : "center",
       alignItems: "center",
       height: "6rem",
-      width: "20rem",
+      width: "24rem",
       rowGap: "1rem",
       color: "#393E46",
     },
@@ -229,7 +229,7 @@ export default function TimePage() {
       [x: string]: string;
     } = {
       Home: "/",
-      PrayerTime: "./Prayer-Time/",
+      PrayerTime: "./Prayer-Time",
     };
     router.push(routering[currentRoute as string]);
   };
@@ -294,13 +294,7 @@ export default function TimePage() {
             </span>{" "}
             now
           </h2>
-          {/* <div className={Font.hourfont} style={timeZoneStyle.cityFlex}>
-            {" "}
-            <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
-            <div style={timeZoneStyle.hourFormat}>
-              {cityTime[1].toUpperCase()}
-            </div>
-          </div> */}
+
           <div className={Font.hourfont} style={timeZoneStyle.hourFormatGrid}>
             <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
             <div style={timeZoneStyle.hourFormat}>
