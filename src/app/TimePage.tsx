@@ -13,7 +13,8 @@ import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
-
+import HomeIcon from "@mui/icons-material/Home";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -230,7 +231,7 @@ export default function TimePage() {
       [x: string]: string;
     } = {
       Home: "/",
-      PrayerTime: `./PrayerTime/${currentCity}`,
+      PrayerTime: "./Prayer-Time/",
     };
     router.push(routering[currentRoute as string]);
   };
@@ -242,10 +243,9 @@ export default function TimePage() {
       <List>
         {["Home", "PrayerTime"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-            {/* onClick={() => handleRouting(text)} */}
+            <ListItemButton onClick={() => handleRouting(text)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <HomeIcon /> : <AccessTimeIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
