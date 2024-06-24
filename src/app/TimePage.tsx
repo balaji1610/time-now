@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import GulfTimeZoneInfo from "./utilities/GulfTimeZoneInfo";
-
-// import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import HomeIcon from "@mui/icons-material/Home";
@@ -19,21 +16,13 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
 import TimeZoneStyle from "@/app/Style/timeZoneStyle";
-import CountryTime from "@/app/Container/CountryTime";
-import CountryTimeList from "@/app/Container/CountryTimeList";
 
 interface TimePageProps {
   children: [React.ReactNode, React.ReactNode];
 }
 export default function TimePage({ children }: TimePageProps) {
-  // const [prayertime, setPrayerTime] = useState([]);
-
-  const { isDesktopScreen } = useApplicationContext();
-  const timeZoneStyle = TimeZoneStyle();
-
-  // --
   const router = useRouter();
-
+  const { isDesktopScreen } = useApplicationContext();
   const [open, setOpen] = useState(false);
 
   const openSidebar = () => {
@@ -54,9 +43,22 @@ export default function TimePage({ children }: TimePageProps) {
   };
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation">
-      <div onClick={closeSidebar}>
-        <CloseIcon fontSize="large" sx={{ cursor: "pointer" }} />
+      <div
+        onClick={closeSidebar}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          marginRight: "17px",
+          height: "4rem",
+          cursor: "pointer",
+          pointerEvents: "auto",
+        }}
+      >
+        <CloseIcon fontSize="large" />
       </div>
+      <Divider />
       <List>
         {["Home", "PrayerTime"].map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -86,7 +88,7 @@ export default function TimePage({ children }: TimePageProps) {
         <Grid>
           <MenuRoundedIcon
             fontSize="large"
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: "pointer", pointerEvents: "auto" }}
             onClick={openSidebar}
           />
         </Grid>
