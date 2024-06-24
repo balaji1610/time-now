@@ -15,13 +15,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
-import TimeZoneStyle from "@/app/Style/timeZoneStyle";
+import Font from "@/app/page.module.css";
 
 interface TimePageProps {
   children: [React.ReactNode, React.ReactNode];
 }
 export default function TimePage({ children }: TimePageProps) {
   const router = useRouter();
+
   const { isDesktopScreen } = useApplicationContext();
   const [open, setOpen] = useState(false);
 
@@ -36,11 +37,12 @@ export default function TimePage({ children }: TimePageProps) {
     const routering: {
       [x: string]: string;
     } = {
-      Home: "/",
-      PrayerTime: "./Prayer-Time",
+      HOME: "/",
+      "PRAYER TIME": "./Prayer-Time",
     };
     router.push(routering[currentRoute as string]);
   };
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation">
       <div
@@ -59,21 +61,25 @@ export default function TimePage({ children }: TimePageProps) {
         <CloseIcon fontSize="large" />
       </div>
       <Divider />
-      <List>
-        {["Home", "PrayerTime"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={() => handleRouting(text)}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <HomeIcon /> : <AccessTimeIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <div className={Font.city}>
+        {" "}
+        <List>
+          {["HOME", "PRAYER TIME"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => handleRouting(text)}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <HomeIcon /> : <AccessTimeIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </div>
       <Divider />
     </Box>
   );
+
   return (
     <div>
       <Grid
@@ -107,8 +113,6 @@ export default function TimePage({ children }: TimePageProps) {
         <Grid xs={isDesktopScreen ? 8 : 12}>{children[0]}</Grid>
         <Grid xs={isDesktopScreen ? 4 : 12}>{children[1]}</Grid>
       </Grid>
-
-      {/* <PrayerTimeLayout preparePrayerTimes={preparePrayerTimes} /> */}
     </div>
   );
 }

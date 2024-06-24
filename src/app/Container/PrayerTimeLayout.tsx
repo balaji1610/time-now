@@ -1,3 +1,4 @@
+"use client";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Grid } from "@mui/material";
@@ -9,11 +10,13 @@ export default function PrayerTimeLayout() {
     loading,
     currentCity,
     isNotDisplayPrayerTime,
+    isDesktopScreen,
     setLoading,
     setIsNotDisplayPrayerTime,
   } = useApplicationContext();
   const [CardHover, setCardHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
+
   const fetchapi = async () => {
     try {
       setLoading(true);
@@ -63,13 +66,10 @@ export default function PrayerTimeLayout() {
       display: "flex",
       flexDirection: "row" as "row",
       justifyContent: "center",
-      height: "8rem",
+      height: "17rem",
     },
     prayerTimeCardHeaderLayout: {
-      display: "flex",
-      flexDirection: "row" as "row",
-      justifyContent: "center",
-      height: "8rem",
+      marginLeft: isDesktopScreen ? "5rem" : "15px",
     },
   };
 
@@ -87,7 +87,7 @@ export default function PrayerTimeLayout() {
     date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
     const hour12 = date.getHours() % 12 || 12;
     const minute = date.getMinutes();
-    const period = date.getHours() >= 12 ? "pm" : "am";
+    const period = date.getHours() >= 12 ? "PM" : "AM";
     const hourString = hour12.toString().padStart(2, "0");
     const minuteString = minute.toString().padStart(2, "0");
     return `${hourString}:${minuteString} ${period}`;
@@ -97,10 +97,16 @@ export default function PrayerTimeLayout() {
     <div>
       <Grid container direction="row" justifyContent="center" xs={12}>
         <Grid>
-          <>
-            {" "}
-            <h1 className={Font.city}>{`Prayer Times in ${currentCity}`}</h1>
-          </>
+          <h2
+            className={Font.city}
+            style={{ color: "#393E46", fontWeight: "400", textAlign: "center" }}
+          >
+            Prayer Times in &nbsp;
+            <span style={{ color: "#393E46", fontWeight: "900" }}>
+              {currentCity}
+            </span>{" "}
+            now
+          </h2>
         </Grid>
       </Grid>
       <div>
@@ -111,7 +117,7 @@ export default function PrayerTimeLayout() {
               <Grid>
                 <>
                   {" "}
-                  <h3>NOT Display Prayer Times</h3>
+                  <h3 style={{ color: "red" }}>NOT Display Prayer Times</h3>
                 </>
               </Grid>
             </Grid>
@@ -123,11 +129,10 @@ export default function PrayerTimeLayout() {
                 <CircularProgress />
               </div>
             ) : (
-              <div>
-                {/* style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout} */}
+              <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
                 {preparePrayerTimes.map((item: any, index: number) => {
                   return (
-                    <span key={index} style={{ marginTop: "1rem" }}>
+                    <span key={index}>
                       {" "}
                       <div
                         style={{
@@ -138,7 +143,7 @@ export default function PrayerTimeLayout() {
                               : "1px solid #00000029",
                           display: "inline-flex",
                           flexDirection: "column" as "column",
-                          width: "8rem",
+                          width: isDesktopScreen ? "10rem" : "6rem",
                           color: "#000000",
                           cursor: "pointer",
                           rowGap: "8px",
@@ -146,6 +151,7 @@ export default function PrayerTimeLayout() {
                           alignItems: "center",
                           height: "4rem",
                           fontSize: "20px",
+                          margin: isDesktopScreen ? "14px" : "8px",
                         }}
                         className={Font.city}
                         onMouseEnter={(e) => CardMouseEnter(e, index)}

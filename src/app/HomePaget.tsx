@@ -1,3 +1,4 @@
+"use client";
 import TimePage from "./TimePage";
 import CountryTime from "./Container/CountryTime";
 import CountryTimeList from "./Container/CountryTimeList";

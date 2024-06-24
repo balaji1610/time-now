@@ -6,10 +6,9 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import GulfTimeZoneInfo from "@/app/utilities/GulfTimeZoneInfo";
+
 interface ApplicationContextType {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;

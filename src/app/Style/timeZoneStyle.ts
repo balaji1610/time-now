@@ -1,7 +1,23 @@
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { usePathname } from "next/navigation";
+let CityCardHeight: string;
 const timeZoneStyle = () => {
   const isDesktopScreen = useMediaQuery("(min-width:600px)");
+  const currentPath = usePathname();
+
+  if (currentPath == "/") {
+    if (isDesktopScreen) {
+      CityCardHeight = "20rem";
+    } else {
+      CityCardHeight = "46rem";
+    }
+  } else if (currentPath == "/Prayer-Time") {
+    if (isDesktopScreen) {
+      CityCardHeight = "20rem";
+    } else {
+      CityCardHeight = "37rem";
+    }
+  }
 
   const timeZoneStyle = {
     cityFlex: {
@@ -29,7 +45,7 @@ const timeZoneStyle = () => {
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
-      height: isDesktopScreen ? "20rem" : "46rem",
+      height: CityCardHeight,
       alignItems: "center",
     },
     currentCityLayout: {

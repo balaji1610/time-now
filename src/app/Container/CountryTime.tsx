@@ -6,9 +6,7 @@ import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
   timeOptionsType,
   DateOptionsType,
-  TimeZoneInfoType,
 } from "@/app/interface/commonInterface";
-
 
 export default function CountryTime() {
   const timeZoneStyle = TimeZoneStyle();
@@ -80,12 +78,10 @@ export default function CountryTime() {
         </span>{" "}
         now
       </h2>
-
       <div className={Font.hourfont} style={timeZoneStyle.hourFormatGrid}>
         <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
         <div style={timeZoneStyle.hourFormat}>{cityTime[1].toUpperCase()}</div>
       </div>
-
       <div className={Font.city} style={timeZoneStyle.dateLayout}>
         <div>
           {" "}

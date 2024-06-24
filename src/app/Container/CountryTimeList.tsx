@@ -5,28 +5,26 @@ import TimeZoneStyle from "@/app/Style/timeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
   timeOptionsType,
-  DateOptionsType,
   TimeZoneInfoType,
 } from "@/app/interface/commonInterface";
+import { usePathname } from "next/navigation";
 
 export default function CountryTimeList(props: any) {
   const { list } = props;
+  const pathname = usePathname();
   const timeZoneStyle = TimeZoneStyle();
+
   const {
-    setLoading,
     currentCity,
     setCurrentCity,
-    setIsNotDisplayPrayerTime,
     isDesktopScreen,
     time,
-    setTime,
-    currentTimeDate,
     setCurrentTimeDate,
-    timeZone,
     setTimeZone,
     hover,
     setHover,
   } = useApplicationContext();
+
   const currentCityTime = (city: string) => {
     return new Intl.DateTimeFormat("en-GB", {
       timeStyle: "short",
@@ -50,12 +48,23 @@ export default function CountryTimeList(props: any) {
   const MouseLeave = () => {
     setHover(null);
   };
+
+  let Cardwidth: string;
+  if (pathname == "/") {
+    Cardwidth = "6rem";
+  } else if (pathname == "/Prayer-Time") {
+    if (isDesktopScreen) {
+      Cardwidth = "8rem";
+    } else {
+      Cardwidth = "6rem";
+    }
+  }
+
   return (
     <div>
       {" "}
       <div style={timeZoneStyle.currentCityParentCard}>
         <div>
-          {" "}
           {list.map((el: any, index: number) => {
             const { city, timeZone } = el;
             const isHovered = hover === index;
@@ -71,7 +80,8 @@ export default function CountryTimeList(props: any) {
                       : "#EEEEEE",
                     display: "inline-flex",
                     flexDirection: "column" as "column",
-                    width: "6rem",
+                    width: Cardwidth,
+                    whiteSpace: "nowrap",
                     color: isClicked
                       ? "white"
                       : isHovered
