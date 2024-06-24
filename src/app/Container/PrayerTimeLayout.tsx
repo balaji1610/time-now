@@ -1,13 +1,62 @@
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Font from "@/app/page.module.css";
 
-export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
-  const { loading, currentCity, isNotDisplayPrayerTime } =
-    useApplicationContext();
+export default function PrayerTimeLayout() {
+  const {
+    loading,
+    currentCity,
+    isNotDisplayPrayerTime,
+    setLoading,
+    setIsNotDisplayPrayerTime,
+  } = useApplicationContext();
   const [CardHover, setCardHover] = useState<number | null>(null);
+  const [prayertime, setPrayerTime] = useState([]);
+  const fetchapi = async () => {
+    try {
+      setLoading(true);
+      const getFetchapi = await fetch(
+        "http://api.aladhan.com/v1/timingsByAddress?address=Dubai"
+      );
+      const reponse = await getFetchapi.json();
+      if (reponse.code == "200") {
+        setPrayerTime(reponse.data.timings);
+      } else {
+        setLoading(false);
+        setPrayerTime([]);
+        setIsNotDisplayPrayerTime(true);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchapi();
+  }, []);
+
+  const preparePrayerTimes = Object?.entries(prayertime)
+    .map(([key, value]) => {
+      const prayerTimeSlot = [
+        "Fajr",
+        "Sunrise",
+        "Dhuhr",
+        "Asr",
+        "Maghrib",
+        "Isha",
+      ];
+      if (prayerTimeSlot.includes(key)) {
+        return {
+          ["slot"]: key,
+          ["time"]: value,
+        };
+      }
+    })
+    .filter((el) => el != undefined);
 
   const PrayerTimeLayoutStyles = {
     loading: {
@@ -74,10 +123,11 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
                 <CircularProgress />
               </div>
             ) : (
-              <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
+              <div>
+                {/* style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout} */}
                 {preparePrayerTimes.map((item: any, index: number) => {
                   return (
-                    <span key={index} style={{ marginLeft: "1rem" }}>
+                    <span key={index} style={{ marginTop: "1rem" }}>
                       {" "}
                       <div
                         style={{
@@ -92,7 +142,7 @@ export default function PrayerTimeLayout({ preparePrayerTimes }: any) {
                           color: "#000000",
                           cursor: "pointer",
                           rowGap: "8px",
-                          padding: "18px",
+                          padding: "35px",
                           alignItems: "center",
                           height: "4rem",
                           fontSize: "20px",

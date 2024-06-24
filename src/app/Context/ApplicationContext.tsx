@@ -8,6 +8,8 @@ import React, {
 } from "react";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import GulfTimeZoneInfo from "@/app/utilities/GulfTimeZoneInfo";
 interface ApplicationContextType {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +18,14 @@ interface ApplicationContextType {
   isNotDisplayPrayerTime: boolean;
   setIsNotDisplayPrayerTime: Dispatch<SetStateAction<boolean>>;
   isDesktopScreen: boolean;
+  time: any;
+  setTime: Dispatch<SetStateAction<any>>;
+  currentTimeDate: any;
+  setCurrentTimeDate: Dispatch<SetStateAction<any>>;
+  timeZone: any;
+  setTimeZone: Dispatch<SetStateAction<any>>;
+  hover: any;
+  setHover: Dispatch<SetStateAction<any>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -31,6 +41,11 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [currentCity, setCurrentCity] = useState("Dubai");
   const [isNotDisplayPrayerTime, setIsNotDisplayPrayerTime] =
     useState<boolean>(false);
+
+  const [time, setTime] = useState(new Date());
+  const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
+  const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
+  const [hover, setHover] = useState<number | null>(null);
   const isDesktopScreen = useMediaQuery("(min-width:600px)");
   return (
     <ApplicationContext.Provider
@@ -42,6 +57,14 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         isNotDisplayPrayerTime,
         setIsNotDisplayPrayerTime,
         isDesktopScreen,
+        time,
+        setTime,
+        currentTimeDate,
+        setCurrentTimeDate,
+        timeZone,
+        setTimeZone,
+        hover,
+        setHover,
       }}
     >
       {children}

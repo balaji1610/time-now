@@ -1,43 +1,38 @@
 const TimeZoneInfo = [
   {
-    city: "Chennai",
-    timeZone: "Asia/Kolkata",
+    city: "Abu Dhabi",
+    timeZone: "Asia/Dubai",
     country: "Tamilnadu",
   },
   {
-    city: "Los Angeles",
-    timeZone: "America/Los_Angeles",
+    city: "Dubai",
+    timeZone: "Asia/Dubai",
     country: "California, United States",
   },
   {
-    city: "New York",
-    timeZone: "America/New_York",
+    city: "Sharjah",
+    timeZone: "Asia/Dubai",
     country: "United States",
   },
   {
-    city: "London",
-    timeZone: "Europe/London",
+    city: "Ajman",
+    timeZone: "Asia/Dubai",
     country: "United Kingdom",
   },
   {
-    city: "Paris",
-    timeZone: "Europe/Paris",
+    city: "Umm Al Quwain",
+    timeZone: "Asia/Dubai",
     country: "France",
   },
   {
-    city: "Kyiv",
-    timeZone: "Europe/Kyiv",
+    city: "Ras Al Khaimah",
+    timeZone: "Asia/Dubai",
     country: "Ukraine",
   },
   {
-    city: "Beijing",
-    timeZone: "Asia/Shanghai",
+    city: "Fujairah",
+    timeZone: "Asia/Dubai",
     country: "China",
-  },
-  {
-    city: "Tokyo",
-    timeZone: "Asia/Tokyo",
-    country: "Japan",
   },
 ];
 

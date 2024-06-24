@@ -1,12 +1,12 @@
 "use client";
-import TimePage from "@/app/TimePage";
+import HomePage from "./HomePaget";
 import { ApplicationProvider } from "./Context/ApplicationContext";
 export default function Home() {
   return (
     <>
       <ApplicationProvider>
         {" "}
-        <TimePage />
+        <HomePage />
       </ApplicationProvider>
     </>
   );
