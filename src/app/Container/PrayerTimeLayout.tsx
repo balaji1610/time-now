@@ -4,6 +4,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Font from "@/app/page.module.css";
+import PrayerTimeLayoutStyle from "../Style/PrayerTimeLayoutStyle";
+
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import UpcomingIcon from "@mui/icons-material/Upcoming";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
 
 export default function PrayerTimeLayout() {
   const {
@@ -16,7 +25,7 @@ export default function PrayerTimeLayout() {
   } = useApplicationContext();
   const [CardHover, setCardHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
-
+  const PrayerTimeLayoutStyles = PrayerTimeLayoutStyle();
   const fetchapi = async () => {
     try {
       setLoading(true);
@@ -42,37 +51,31 @@ export default function PrayerTimeLayout() {
     fetchapi();
   }, []);
 
-  const preparePrayerTimes = Object?.entries(prayertime)
-    .map(([key, value]) => {
-      const prayerTimeSlot = [
-        "Fajr",
-        "Sunrise",
-        "Dhuhr",
-        "Asr",
-        "Maghrib",
-        "Isha",
-      ];
-      if (prayerTimeSlot.includes(key)) {
-        return {
-          ["slot"]: key,
-          ["time"]: value,
-        };
-      }
+  const prayerTimeSlot = [
+    "Fajr",
+    "Dhuhr",
+    "Asr",
+    "Maghrib",
+    "Isha",
+    "Sunrise",
+    "Sunset",
+  ];
+
+  const prayerTimeLists = Object.entries(prayertime).map(([key, value]) => {
+    return {
+      ["slot"]: key,
+      ["time"]: value,
+    };
+  });
+
+  const preparePrayerTimes = prayerTimeSlot
+    .map((el) => {
+      return prayerTimeLists.find((item) => el == item.slot);
     })
     .filter((el) => el != undefined);
 
-  const PrayerTimeLayoutStyles = {
-    loading: {
-      display: "flex",
-      flexDirection: "row" as "row",
-      justifyContent: "center",
-      height: "17rem",
-    },
-    prayerTimeCardHeaderLayout: {
-      marginLeft: isDesktopScreen ? "5rem" : "15px",
-    },
-  };
-
+  const firstPhasePrayerTime = preparePrayerTimes.slice(0, 5);
+  const secondPhasePrayerTime = preparePrayerTimes.slice(-2);
   const CardMouseEnter = (e: any, index: number) => {
     setCardHover(index);
   };
@@ -91,6 +94,16 @@ export default function PrayerTimeLayout() {
     const hourString = hour12.toString().padStart(2, "0");
     const minuteString = minute.toString().padStart(2, "0");
     return `${hourString}:${minuteString} ${period}`;
+  };
+
+  const PrayerTimeImage: any = {
+    Fajr: <UpcomingIcon />,
+    Dhuhr: <WbSunnyIcon />,
+    Asr: <LightModeIcon />,
+    Maghrib: <NightsStayIcon />,
+    Isha: <DarkModeIcon />,
+    Sunrise: <WbSunnyIcon />,
+    Sunset: <NightsStayIcon />,
   };
 
   return (
@@ -130,7 +143,7 @@ export default function PrayerTimeLayout() {
               </div>
             ) : (
               <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
-                {preparePrayerTimes.map((item: any, index: number) => {
+                {firstPhasePrayerTime.map((item: any, index: number) => {
                   return (
                     <span key={index}>
                       {" "}
@@ -157,7 +170,19 @@ export default function PrayerTimeLayout() {
                         onMouseEnter={(e) => CardMouseEnter(e, index)}
                         onMouseLeave={CardMouseLeave}
                       >
-                        <div style={{ fontWeight: "900" }}>{item.slot}</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row" as "row",
+                            justifyContent: "space-evenly",
+                            width: "10rem",
+                          }}
+                        >
+                          {" "}
+                          <div>{PrayerTimeImage[item.slot]} </div>
+                          <div style={{ fontWeight: "900" }}>{item.slot}</div>
+                        </div>
+
                         <div>{prayerTwelveHourFormat(item.time)}</div>
                       </div>
                     </span>
