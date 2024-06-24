@@ -12,7 +12,7 @@ import {
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Link from "next/link";
+
 import HomeIcon from "@mui/icons-material/Home";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Box from "@mui/material/Box";
@@ -23,8 +23,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
 
