@@ -11,8 +11,6 @@ import {
 // import PrayerTimeLayout from "./Container/PrayerTimeLayout";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import useMediaQuery from "@mui/material/useMediaQuery";
-
 import HomeIcon from "@mui/icons-material/Home";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Box from "@mui/material/Box";
@@ -25,6 +23,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
+import TimeZoneStyle from "@/app/Style/timeZoneStyle";
 
 export default function TimePage() {
   const [time, setTime] = useState(new Date());
@@ -32,11 +31,14 @@ export default function TimePage() {
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
   const [hover, setHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
-  const isDesktopScreen = useMediaQuery("(min-width:600px)");
-
-  const { setLoading, currentCity, setCurrentCity, setIsNotDisplayPrayerTime } =
-    useApplicationContext();
-
+  const {
+    setLoading,
+    currentCity,
+    setCurrentCity,
+    setIsNotDisplayPrayerTime,
+    isDesktopScreen,
+  } = useApplicationContext();
+  const timeZoneStyle = TimeZoneStyle();
   const fetchapi = async () => {
     try {
       setLoading(true);
@@ -101,74 +103,6 @@ export default function TimePage() {
     .split(",")
     .slice(1, 3)
     .join(",");
-
-  const timeZoneStyle = {
-    cityFlex: {
-      display: "flex",
-      flexDirection: "row" as "row",
-      justifyContent: "center",
-      color: "#393E46",
-    },
-    cityTime: {
-      fontSize: isDesktopScreen ? "10rem" : "4rem",
-      display: "flex",
-      lineHeight: isDesktopScreen ? "11rem" : "8rem",
-      flexDirection: "row" as "row",
-      justifyContent: isDesktopScreen ? "center" : "flex-end",
-    },
-    hourFormat: {
-      fontSize: isDesktopScreen ? "5rem" : "2rem",
-      display: "flex",
-      flexDirection: "column" as "column",
-      height: isDesktopScreen ? "12rem" : "8rem",
-      alignItems: isDesktopScreen ? "center" : "flex-start",
-      justifyContent: "center",
-      width: isDesktopScreen ? "auto" : "100%",
-    },
-    currentCityParentCard: {
-      display: "flex",
-      flexDirection: "row" as "row",
-      height: isDesktopScreen ? "20rem" : "46rem",
-      alignItems: "center",
-    },
-    currentCityLayout: {
-      border: "1px solid rgba(0, 0, 0, 0.25)",
-      backgroundColor: "rgb(0 0 0 / 0.1)",
-      display: "inline-flex",
-      flexDirection: "column" as "column",
-      width: "6rem",
-      color: "black",
-    },
-
-    date: {
-      fontWeight: "600",
-      fontSize: "25px",
-      display: "inline",
-    },
-    regionaldate: {
-      fontWeight: "500",
-      fontSize: "16px",
-      display: "inline",
-      marginRight: isDesktopScreen ? "83px" : "6px",
-    },
-    dateLayout: {
-      display: "inline-flex",
-      flexDirection: "column" as "column",
-      justifyContent: isDesktopScreen ? "flex-start" : "center",
-      alignItems: "center",
-      height: "6rem",
-      width: "24rem",
-      rowGap: "1rem",
-      color: "#393E46",
-    },
-
-    hourFormatGrid: {
-      display: "grid",
-      gridTemplateColumns: isDesktopScreen ? "91%  6%" : "80%  20%",
-      columnGap: "10px",
-      color: "#393E46",
-    },
-  };
 
   const currentCityTime = (city: string) => {
     return new Intl.DateTimeFormat("en-GB", {

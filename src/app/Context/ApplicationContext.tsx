@@ -7,6 +7,7 @@ import React, {
   SetStateAction,
 } from "react";
 
+import useMediaQuery from "@mui/material/useMediaQuery";
 interface ApplicationContextType {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ interface ApplicationContextType {
   setCurrentCity: Dispatch<SetStateAction<string>>;
   isNotDisplayPrayerTime: boolean;
   setIsNotDisplayPrayerTime: Dispatch<SetStateAction<boolean>>;
+  isDesktopScreen: boolean;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -29,6 +31,7 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [currentCity, setCurrentCity] = useState("Dubai");
   const [isNotDisplayPrayerTime, setIsNotDisplayPrayerTime] =
     useState<boolean>(false);
+  const isDesktopScreen = useMediaQuery("(min-width:600px)");
   return (
     <ApplicationContext.Provider
       value={{
@@ -38,6 +41,7 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         setCurrentCity,
         isNotDisplayPrayerTime,
         setIsNotDisplayPrayerTime,
+        isDesktopScreen,
       }}
     >
       {children}
