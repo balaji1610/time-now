@@ -113,7 +113,22 @@ export default function PrayerTimeLayout() {
     Maghrib: <NightsStayIcon />,
     Isha: <DarkModeIcon />,
     Sunrise: <WbSunnyIcon />,
-    Sunset: <NightsStayIcon />,
+    Sunset: <UpcomingIcon />,
+  };
+
+  const prayerTimeColor = (slot: string) => {
+    let imageColor;
+    switch (slot) {
+      case "Maghrib":
+        imageColor = "#03A9F4";
+        break;
+      case "Isha":
+        imageColor = "#03A9F4";
+        break;
+      default:
+        imageColor = "#FBC02D";
+    }
+    return imageColor;
   };
 
   return (
@@ -162,17 +177,15 @@ export default function PrayerTimeLayout() {
                         <div
                           style={{
                             backgroundColor: "white",
-                            border:
-                              CardHover == index
-                                ? "1px solid #0288D1"
-                                : "1px solid #00000029",
+                            // border:
+                            //   CardHover == index ? "1px solid #757575" : "",
                             display: "inline-flex",
                             flexDirection: "column" as "column",
                             width: isDesktopScreen ? "10rem" : "6rem",
-                            color: "#000000",
+                            color: "#393E46",
                             cursor: "pointer",
-                            rowGap: "8px",
-                            padding: "35px",
+                            rowGap: "5px",
+                            padding: isDesktopScreen ? "15px" : "25px",
                             alignItems: "center",
                             height: "4rem",
                             fontSize: "20px",
@@ -193,17 +206,28 @@ export default function PrayerTimeLayout() {
                             }}
                           >
                             {" "}
-                            <div>{PrayerTimeImage[item.slot]} </div>
-                            <div style={{ fontWeight: "900" }}>{item.slot}</div>
+                            <div
+                              style={{
+                                color:
+                                  CardHover == index
+                                    ? prayerTimeColor(item.slot)
+                                    : "rgb(0, 0, 0)",
+                              }}
+                            >
+                              {PrayerTimeImage[item.slot]}{" "}
+                            </div>
+                            <div style={{ fontWeight: "600" }}>{item.slot}</div>
                           </div>
-                          <div>{prayerTwelveHourFormat(item.time)}</div>
+                          <div className={Font.hourfont}>
+                            {prayerTwelveHourFormat(item.time)}
+                          </div>
                         </div>
                       </span>
                     );
                   })}
                 </div>
                 <div>
-                  <Divider />
+                  <Divider variant="middle" />
                   <div
                     style={PrayerTimeLayoutStyles.secondPhaseCardHeaderLayout}
                   >
@@ -214,17 +238,17 @@ export default function PrayerTimeLayout() {
                           <div
                             style={{
                               backgroundColor: "white",
-                              border:
-                                secondCardHover == index
-                                  ? "1px solid #0288D1"
-                                  : "1px solid #00000029",
+                              // border:
+                              //   secondCardHover == index
+                              //     ? "1px solid #0288D1"
+                              //     : "1px solid #00000029",
                               display: "inline-flex",
                               flexDirection: "column" as "column",
                               width: isDesktopScreen ? "10rem" : "6rem",
-                              color: "#000000",
+                              color: "#393E46",
                               cursor: "pointer",
-                              rowGap: "8px",
-                              padding: "35px",
+                              rowGap: "5px",
+                              padding: "15px",
                               alignItems: "center",
                               height: "4rem",
                               fontSize: "20px",
@@ -245,12 +269,23 @@ export default function PrayerTimeLayout() {
                               }}
                             >
                               {" "}
-                              <div>{PrayerTimeImage[item.slot]} </div>
-                              <div style={{ fontWeight: "900" }}>
+                              <div
+                                style={{
+                                  color:
+                                    secondCardHover == index
+                                      ? prayerTimeColor(item.slot)
+                                      : "rgb(0, 0, 0)",
+                                }}
+                              >
+                                {PrayerTimeImage[item.slot]}{" "}
+                              </div>
+                              <div style={{ fontWeight: "600" }}>
                                 {item.slot}
                               </div>
                             </div>
-                            <div>{prayerTwelveHourFormat(item.time)}</div>
+                            <div className={Font.hourfont}>
+                              {prayerTwelveHourFormat(item.time)}
+                            </div>
                           </div>
                         </span>
                       );

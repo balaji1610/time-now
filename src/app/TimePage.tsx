@@ -58,7 +58,7 @@ export default function TimePage({ children }: TimePageProps) {
           pointerEvents: "auto",
         }}
       >
-        <CloseIcon fontSize="large" />
+        <CloseIcon fontSize="medium" sx={{ color: "#808080ba" }} />
       </div>
       <Divider />
       <div className={Font.city}>

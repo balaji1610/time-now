@@ -16,7 +16,7 @@ const PrayerTimeLayoutStyle = () => {
       marginLeft: isDesktopScreen ? "5rem" : "15px",
       display: "grid",
       gridTemplateColumns: "auto auto",
-      justifyContent: "space-between",
+      justifyContent: isDesktopScreen ? "space-evenly" : "normal",
     },
   };
 
