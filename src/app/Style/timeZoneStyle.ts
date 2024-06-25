@@ -72,7 +72,7 @@ const timeZoneStyle = () => {
       display: "inline-flex",
       flexDirection: "column" as "column",
       justifyContent: isDesktopScreen ? "flex-start" : "center",
-      alignItems: "center",
+      alignItems: isDesktopScreen ? "flex-start" : "center",
       height: "6rem",
       width: isDesktopScreen ? "24rem" : "26rem",
       rowGap: "1rem",

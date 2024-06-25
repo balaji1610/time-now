@@ -208,7 +208,7 @@ export default function PrayerTimeLayout() {
                                     alignItems: "center",
                                     height: "4rem",
                                     fontSize: "20px",
-                                    margin: isDesktopScreen ? "14px" : "8px",
+                                    margin: isDesktopScreen ? "14px" : "15px",
                                   }}
                                   className={Font.city}
                                   onMouseEnter={(e) =>
@@ -222,8 +222,8 @@ export default function PrayerTimeLayout() {
                                     style={{
                                       display: "flex",
                                       flexDirection: "row" as "row",
-                                      justifyContent: "space-evenly",
-                                      width: "10rem",
+                                      justifyContent: "normal",
+                                      // width: "10rem",
                                     }}
                                   >
                                     {" "}
@@ -237,7 +237,12 @@ export default function PrayerTimeLayout() {
                                     >
                                       {PrayerTimeImage[item.slot]}{" "}
                                     </div>
-                                    <div style={{ fontWeight: "600" }}>
+                                    <div
+                                      style={{
+                                        fontWeight: "600",
+                                        marginLeft: "8px",
+                                      }}
+                                    >
                                       {item.slot}
                                     </div>
                                   </div>
@@ -294,8 +299,7 @@ export default function PrayerTimeLayout() {
                                     style={{
                                       display: "flex",
                                       flexDirection: "row" as "row",
-                                      justifyContent: "space-evenly",
-                                      width: "10rem",
+                                      justifyContent: "normal",
                                     }}
                                   >
                                     {" "}
@@ -309,7 +313,12 @@ export default function PrayerTimeLayout() {
                                     >
                                       {PrayerTimeImage[item.slot]}{" "}
                                     </div>
-                                    <div style={{ fontWeight: "600" }}>
+                                    <div
+                                      style={{
+                                        fontWeight: "600",
+                                        marginLeft: "8px",
+                                      }}
+                                    >
                                       {item.slot}
                                     </div>
                                   </div>

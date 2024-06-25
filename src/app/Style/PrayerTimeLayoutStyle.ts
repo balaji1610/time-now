@@ -18,10 +18,10 @@ const PrayerTimeLayoutStyle = () => {
     },
 
     secondPhaseCardHeaderLayout: {
-      marginLeft: isDesktopScreen ? "5rem" : "15px",
       marginTop: "1rem",
-      display: "grid",
-      gridTemplateColumns: "auto auto",
+      display: "flex",
+      flexDirection: "row" as "row",
+      justifyContent: isDesktopScreen ? "normal" : "space-evenly",
     },
   };
 
