@@ -9,13 +9,13 @@ const timeZoneStyle = () => {
     if (isDesktopScreen) {
       CityCardHeight = "20rem";
     } else {
-      CityCardHeight = "46rem";
+      CityCardHeight = "44rem";
     }
   } else if (currentPath == "/Prayer-Time") {
     if (isDesktopScreen) {
       CityCardHeight = "20rem";
     } else {
-      CityCardHeight = "37rem";
+      CityCardHeight = "53rem";
     }
   }
 
@@ -34,20 +34,20 @@ const timeZoneStyle = () => {
       justifyContent: isDesktopScreen ? "center" : "flex-end",
     },
     hourFormat: {
-      fontSize: isDesktopScreen ? "5rem" : "2rem",
+      fontSize: isDesktopScreen ? "3rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
       height: isDesktopScreen ? "12rem" : "8rem",
       alignItems: isDesktopScreen ? "center" : "flex-start",
-      justifyContent: "center",
-      width: isDesktopScreen ? "auto" : "100%",
+      justifyContent: isDesktopScreen ? "center" : "center",
+      width: isDesktopScreen ? "6rem" : "100%",
     },
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
       justifyContent: "center",
       height: CityCardHeight,
-      alignItems: "center",
+      alignItems: isDesktopScreen ? "center" : "flex-end",
     },
     currentCityLayout: {
       border: "1px solid rgba(0, 0, 0, 0.25)",
@@ -80,7 +80,7 @@ const timeZoneStyle = () => {
     },
     hourFormatGrid: {
       display: "grid",
-      gridTemplateColumns: isDesktopScreen ? "91%  6%" : "80%  20%",
+      gridTemplateColumns: isDesktopScreen ? "91%  6%" : "auto auto",
       columnGap: "10px",
       color: "#393E46",
     },

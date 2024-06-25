@@ -61,7 +61,7 @@ export default function TimePage({ children }: TimePageProps) {
         <CloseIcon fontSize="medium" sx={{ color: "#808080ba" }} />
       </div>
       <Divider />
-      <div className={Font.city}>
+      <div>
         {" "}
         <List>
           {["HOME", "PRAYER TIME"].map((text, index) => (
@@ -70,7 +70,9 @@ export default function TimePage({ children }: TimePageProps) {
                 <ListItemIcon>
                   {index % 2 === 0 ? <HomeIcon /> : <AccessTimeIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <p className={Font.city} style={{ fontWeight: "600" }}>
+                  {text}
+                </p>
               </ListItemButton>
             </ListItem>
           ))}
@@ -82,7 +84,7 @@ export default function TimePage({ children }: TimePageProps) {
 
   return (
     <div>
-      <Grid
+      {/* <Grid
         container
         xs={12}
         direction="row"
@@ -98,7 +100,7 @@ export default function TimePage({ children }: TimePageProps) {
             onClick={openSidebar}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
       <Drawer open={open} onClose={closeSidebar}>
         {DrawerList}
       </Drawer>
@@ -110,8 +112,32 @@ export default function TimePage({ children }: TimePageProps) {
         alignItems="center"
         height="27rem"
       >
-        <Grid xs={isDesktopScreen ? 8 : 12}>{children[0]}</Grid>
-        <Grid xs={isDesktopScreen ? 4 : 12}>{children[1]}</Grid>
+        <Grid xs={isDesktopScreen ? 1 : 12}>
+          {" "}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: isDesktopScreen ? "flex-start" : "center",
+              height: isDesktopScreen ? "25rem" : "5rem",
+              width: "5rem",
+            }}
+          >
+            {" "}
+            <MenuRoundedIcon
+              fontSize="large"
+              sx={{ cursor: "pointer", pointerEvents: "auto" }}
+              onClick={openSidebar}
+            />
+          </div>
+        </Grid>
+        <Grid xs={isDesktopScreen ? 7 : 12}>
+          <div> {children[0]}</div>
+        </Grid>
+        <Grid xs={isDesktopScreen ? 4 : 12}>
+          <div style={{ height: "12rem" }}>{children[1]}</div>
+        </Grid>
       </Grid>
     </div>
   );

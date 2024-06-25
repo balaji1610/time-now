@@ -10,7 +10,11 @@ export default function PrayerTime() {
     <ApplicationProvider>
       {" "}
       <TimePage>
-        <PrayerTimeLayout />
+        <div style={{ height: "25rem" }}>
+          {" "}
+          <PrayerTimeLayout />
+        </div>
+
         <CountryTimeList list={TimeZoneInfo} />
       </TimePage>
     </ApplicationProvider>
