@@ -7,15 +7,15 @@ const timeZoneStyle = () => {
 
   if (currentPath == "/") {
     if (isDesktopScreen) {
-      CityCardHeight = "20rem";
+      CityCardHeight = "36rem";
     } else {
       CityCardHeight = "44rem";
     }
   } else if (currentPath == "/Prayer-Time") {
     if (isDesktopScreen) {
-      CityCardHeight = "20rem";
+      CityCardHeight = "31rem";
     } else {
-      CityCardHeight = "53rem";
+      CityCardHeight = "36rem";
     }
   }
 
@@ -39,8 +39,8 @@ const timeZoneStyle = () => {
       flexDirection: "column" as "column",
       height: isDesktopScreen ? "12rem" : "8rem",
       alignItems: isDesktopScreen ? "center" : "flex-start",
-      justifyContent: isDesktopScreen ? "center" : "center",
-      width: isDesktopScreen ? "6rem" : "100%",
+      justifyContent: isDesktopScreen ? "flex-end" : "center",
+      width: isDesktopScreen ? "4rem" : "100%",
     },
     currentCityParentCard: {
       display: "flex",

@@ -79,6 +79,7 @@ export default function CountryTimeList(props: any) {
                         : isHovered
                         ? "#999999"
                         : "#EEEEEE",
+                      border: "1px solid #999999",
                       display: "inline-flex",
                       flexDirection: "column" as "column",
                       width: Cardwidth,

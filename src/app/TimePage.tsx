@@ -16,13 +16,15 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
 import Font from "@/app/page.module.css";
-
+import { usePathname } from "next/navigation";
 interface TimePageProps {
   children: [React.ReactNode, React.ReactNode];
 }
+let navgationHeight: string;
+let firstChildrenHeight: string;
 export default function TimePage({ children }: TimePageProps) {
   const router = useRouter();
-
+  const pathname = usePathname();
   const { isDesktopScreen } = useApplicationContext();
   const [open, setOpen] = useState(false);
 
@@ -82,6 +84,28 @@ export default function TimePage({ children }: TimePageProps) {
     </Box>
   );
 
+  if (pathname == "/") {
+    navgationHeight = "33rem";
+  } else if (pathname == "/Prayer-Time") {
+    if (isDesktopScreen) {
+      navgationHeight = "33rem";
+    }
+  }
+
+  if (pathname == "/") {
+    if (isDesktopScreen) {
+      firstChildrenHeight = "32rem";
+    } else {
+      firstChildrenHeight = "21rem";
+    }
+  } else {
+    if (isDesktopScreen) {
+      firstChildrenHeight = "32rem";
+    } else {
+      firstChildrenHeight = "44rem";
+    }
+  }
+
   return (
     <div>
       {/* <Grid
@@ -120,7 +144,7 @@ export default function TimePage({ children }: TimePageProps) {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: isDesktopScreen ? "flex-start" : "center",
-              height: isDesktopScreen ? "25rem" : "5rem",
+              height: isDesktopScreen ? navgationHeight : "5rem",
               width: "5rem",
             }}
           >
@@ -133,10 +157,28 @@ export default function TimePage({ children }: TimePageProps) {
           </div>
         </Grid>
         <Grid xs={isDesktopScreen ? 7 : 12}>
-          <div> {children[0]}</div>
+          <div
+            style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              width: "100%",
+              height: firstChildrenHeight,
+            }}
+          >
+            {" "}
+            {children[0]}
+          </div>
         </Grid>
         <Grid xs={isDesktopScreen ? 4 : 12}>
-          <div style={{ height: "12rem" }}>{children[1]}</div>
+          <div
+            style={{
+              height: isDesktopScreen ? "100vh" : "auto",
+              backgroundColor: "#bdbdbd1a",
+            }}
+          >
+            {children[1]}
+          </div>
         </Grid>
       </Grid>
     </div>

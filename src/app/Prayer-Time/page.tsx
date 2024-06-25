@@ -10,8 +10,7 @@ export default function PrayerTime() {
     <ApplicationProvider>
       {" "}
       <TimePage>
-        <div style={{ height: "25rem" }}>
-          {" "}
+        <div style={{ height: "42rem" }}>
           <PrayerTimeLayout />
         </div>
 
