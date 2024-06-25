@@ -170,63 +170,67 @@ export default function PrayerTimeLayout() {
               <>
                 {" "}
                 <div style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}>
-                  {firstPhasePrayerTime.map((item: any, index: number) => {
-                    return (
-                      <span key={index}>
-                        {" "}
-                        <div
-                          style={{
-                            backgroundColor: "white",
-                            // border:
-                            //   CardHover == index ? "1px solid #757575" : "",
-                            display: "inline-flex",
-                            flexDirection: "column" as "column",
-                            width: isDesktopScreen ? "10rem" : "6rem",
-                            color: "#393E46",
-                            cursor: "pointer",
-                            rowGap: "5px",
-                            padding: isDesktopScreen ? "15px" : "25px",
-                            alignItems: "center",
-                            height: "4rem",
-                            fontSize: "20px",
-                            margin: isDesktopScreen ? "14px" : "8px",
-                          }}
-                          className={Font.city}
-                          onMouseEnter={(e) =>
-                            CardMouseEnter(e, index, "fistPhase")
-                          }
-                          onMouseLeave={() => CardMouseLeave("fistPhase")}
-                        >
+                  <div style={{ width: isDesktopScreen ? "auto" : "24rem" }}>
+                    {firstPhasePrayerTime.map((item: any, index: number) => {
+                      return (
+                        <span key={index}>
+                          {" "}
                           <div
                             style={{
-                              display: "flex",
-                              flexDirection: "row" as "row",
-                              justifyContent: "space-evenly",
-                              width: "10rem",
+                              backgroundColor: "white",
+                              // border:
+                              //   CardHover == index ? "1px solid #757575" : "",
+                              display: "inline-flex",
+                              flexDirection: "column" as "column",
+                              width: isDesktopScreen ? "10rem" : "6rem",
+                              color: "#393E46",
+                              cursor: "pointer",
+                              rowGap: "5px",
+                              padding: isDesktopScreen ? "25px" : "35px",
+                              alignItems: "center",
+                              height: "4rem",
+                              fontSize: "20px",
+                              margin: isDesktopScreen ? "14px" : "8px",
                             }}
+                            className={Font.city}
+                            onMouseEnter={(e) =>
+                              CardMouseEnter(e, index, "fistPhase")
+                            }
+                            onMouseLeave={() => CardMouseLeave("fistPhase")}
                           >
-                            {" "}
                             <div
                               style={{
-                                color:
-                                  CardHover == index
-                                    ? prayerTimeColor(item.slot)
-                                    : "rgb(0, 0, 0)",
+                                display: "flex",
+                                flexDirection: "row" as "row",
+                                justifyContent: "space-evenly",
+                                width: "10rem",
                               }}
                             >
-                              {PrayerTimeImage[item.slot]}{" "}
+                              {" "}
+                              <div
+                                style={{
+                                  color:
+                                    CardHover == index
+                                      ? prayerTimeColor(item.slot)
+                                      : "rgb(0, 0, 0)",
+                                }}
+                              >
+                                {PrayerTimeImage[item.slot]}{" "}
+                              </div>
+                              <div style={{ fontWeight: "600" }}>
+                                {item.slot}
+                              </div>
                             </div>
-                            <div style={{ fontWeight: "600" }}>{item.slot}</div>
+                            <div className={Font.hourfont}>
+                              {prayerTwelveHourFormat(item.time)}
+                            </div>
                           </div>
-                          <div className={Font.hourfont}>
-                            {prayerTwelveHourFormat(item.time)}
-                          </div>
-                        </div>
-                      </span>
-                    );
-                  })}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div>
+                <div style={{ marginTop: "2rem" }}>
                   <Divider variant="middle" />
                   <div
                     style={PrayerTimeLayoutStyles.secondPhaseCardHeaderLayout}

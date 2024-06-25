@@ -64,52 +64,54 @@ export default function CountryTimeList(props: any) {
     <div>
       {" "}
       <div style={timeZoneStyle.currentCityParentCard}>
-        <div>
-          {list.map((el: any, index: number) => {
-            const { city, timeZone } = el;
-            const isHovered = hover === index;
-            const isClicked = currentCity === city;
-            return (
-              <span key={index}>
-                <div
-                  style={{
-                    backgroundColor: isClicked
-                      ? "#999999"
-                      : isHovered
-                      ? "#999999"
-                      : "#EEEEEE",
-                    display: "inline-flex",
-                    flexDirection: "column" as "column",
-                    width: Cardwidth,
-                    whiteSpace: "nowrap",
-                    color: isClicked
-                      ? "white"
-                      : isHovered
-                      ? "white"
-                      : "#393E46",
-                    cursor: "pointer",
-                    rowGap: "6px",
-                    padding: isDesktopScreen ? "10px" : "28px",
-                    alignItems: "center",
-                    fontWeight: "900",
-                    margin: "1rem",
-                  }}
-                  onMouseEnter={(e) => MouseEnter(e, index)}
-                  onMouseLeave={MouseLeave}
-                  onClick={() => handleOnClick(el)}
-                >
-                  <div className={Font.city}> {city}</div>
+        <div style={{ width: "24rem" }}>
+          <div>
+            {list.map((el: any, index: number) => {
+              const { city, timeZone } = el;
+              const isHovered = hover === index;
+              const isClicked = currentCity === city;
+              return (
+                <span key={index}>
                   <div
-                    className={Font.hourfont}
-                    style={{ fontWeight: "400", fontSize: "18px" }}
+                    style={{
+                      backgroundColor: isClicked
+                        ? "#999999"
+                        : isHovered
+                        ? "#999999"
+                        : "#EEEEEE",
+                      display: "inline-flex",
+                      flexDirection: "column" as "column",
+                      width: Cardwidth,
+                      whiteSpace: "nowrap",
+                      color: isClicked
+                        ? "white"
+                        : isHovered
+                        ? "white"
+                        : "#393E46",
+                      cursor: "pointer",
+                      rowGap: "6px",
+                      padding: isDesktopScreen ? "10px" : "28px",
+                      alignItems: "center",
+                      fontWeight: "900",
+                      margin: "1rem",
+                    }}
+                    onMouseEnter={(e) => MouseEnter(e, index)}
+                    onMouseLeave={MouseLeave}
+                    onClick={() => handleOnClick(el)}
                   >
-                    {currentCityTime(timeZone)[0]}&nbsp;
-                    {currentCityTime(timeZone)[1].toUpperCase()}
+                    <div className={Font.city}> {city}</div>
+                    <div
+                      className={Font.hourfont}
+                      style={{ fontWeight: "400", fontSize: "18px" }}
+                    >
+                      {currentCityTime(timeZone)[0]}&nbsp;
+                      {currentCityTime(timeZone)[1].toUpperCase()}
+                    </div>
                   </div>
-                </div>
-              </span>
-            );
-          })}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

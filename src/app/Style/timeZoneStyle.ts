@@ -45,6 +45,7 @@ const timeZoneStyle = () => {
     currentCityParentCard: {
       display: "flex",
       flexDirection: "row" as "row",
+      justifyContent: "center",
       height: CityCardHeight,
       alignItems: "center",
     },
