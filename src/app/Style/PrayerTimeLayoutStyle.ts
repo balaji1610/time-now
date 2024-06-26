@@ -1,3 +1,4 @@
+"use client";
 import { useApplicationContext } from "../Context/ApplicationContext";
 const PrayerTimeLayoutStyle = () => {
   const { isDesktopScreen } = useApplicationContext();

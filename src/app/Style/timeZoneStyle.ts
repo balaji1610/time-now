@@ -1,3 +1,4 @@
+"use client";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
 let CityCardHeight: string;

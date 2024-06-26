@@ -1,3 +1,4 @@
+"use client";
 export interface timeOptionsType {
   timeStyle: "medium" | "full" | "long" | "short";
   timeZone: string;
