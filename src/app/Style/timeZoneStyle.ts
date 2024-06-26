@@ -23,7 +23,7 @@ const timeZoneStyle = () => {
       CityCardMarginTop = "0rem";
     }
   }
-  console.log(currentPath, CityCardHeight, "currentPath");
+
   const timeZoneStyle = {
     cityFlex: {
       display: "flex",

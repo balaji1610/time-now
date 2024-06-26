@@ -85,10 +85,10 @@ export default function TimePage({ children }: TimePageProps) {
   );
 
   if (pathname == "/") {
-    navgationHeight = "33rem";
+    navgationHeight = "5rem";
   } else if (pathname == "/prayer-time") {
     if (isDesktopScreen) {
-      navgationHeight = "33rem";
+      navgationHeight = "5rem";
     }
   }
 
@@ -107,7 +107,7 @@ export default function TimePage({ children }: TimePageProps) {
   }
 
   return (
-    <div>
+    <>
       {/* <Grid
         container
         xs={12}
@@ -125,16 +125,14 @@ export default function TimePage({ children }: TimePageProps) {
           />
         </Grid>
       </Grid> */}
-      <Drawer open={open} onClose={closeSidebar}>
-        {DrawerList}
-      </Drawer>
+
       <Grid
         container
         xs={12}
         direction="row"
         justifyContent="flex-start"
-        alignItems="center"
-        height="27rem"
+        alignItems="flex-start"
+        height="100vh"
       >
         <Grid xs={isDesktopScreen ? 1 : 12}>
           {" "}
@@ -143,17 +141,23 @@ export default function TimePage({ children }: TimePageProps) {
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
-              alignItems: isDesktopScreen ? "flex-start" : "center",
+              alignItems: isDesktopScreen ? "center" : "center",
               height: isDesktopScreen ? navgationHeight : "5rem",
               width: "5rem",
             }}
           >
             {" "}
-            <MenuRoundedIcon
-              fontSize="large"
-              sx={{ cursor: "pointer", pointerEvents: "auto" }}
-              onClick={openSidebar}
-            />
+            <>
+              {" "}
+              <MenuRoundedIcon
+                fontSize="large"
+                sx={{ cursor: "pointer", pointerEvents: "auto" }}
+                onClick={openSidebar}
+              />
+              <Drawer open={open} onClose={closeSidebar}>
+                {DrawerList}
+              </Drawer>
+            </>
           </div>
         </Grid>
         <Grid xs={isDesktopScreen ? 7 : 12}>
@@ -181,6 +185,6 @@ export default function TimePage({ children }: TimePageProps) {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }
