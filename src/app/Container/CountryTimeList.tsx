@@ -103,10 +103,18 @@ export default function CountryTimeList(props: any) {
                     <div className={Font.city}> {city}</div>
                     <div
                       className={Font.hourfont}
-                      style={{ fontWeight: "400", fontSize: "18px" }}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        fontWeight: "400",
+                        fontSize: "18px",
+                      }}
                     >
-                      {currentCityTime(timeZone)[0]}&nbsp;
-                      {currentCityTime(timeZone)[1].toUpperCase()}
+                      <div> {currentCityTime(timeZone)[0]}</div>
+                      <div style={{ marginLeft: "5px" }}>
+                        {" "}
+                        {currentCityTime(timeZone)[1].toUpperCase()}
+                      </div>
                     </div>
                   </div>
                 </span>

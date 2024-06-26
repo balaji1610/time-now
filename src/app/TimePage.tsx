@@ -94,13 +94,13 @@ export default function TimePage({ children }: TimePageProps) {
 
   if (pathname == "/") {
     if (isDesktopScreen) {
-      firstChildrenHeight = "32rem";
+      firstChildrenHeight = "35rem";
     } else {
       firstChildrenHeight = "21rem";
     }
   } else {
     if (isDesktopScreen) {
-      firstChildrenHeight = "32rem";
+      firstChildrenHeight = "35rem";
     } else {
       firstChildrenHeight = "44rem";
     }

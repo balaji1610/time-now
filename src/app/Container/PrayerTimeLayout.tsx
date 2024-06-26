@@ -28,6 +28,7 @@ export default function PrayerTimeLayout() {
   const [secondCardHover, setSecondCardHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
   const PrayerTimeLayoutStyles = PrayerTimeLayoutStyle();
+
   const fetchapi = async () => {
     try {
       setLoading(true);
@@ -100,10 +101,16 @@ export default function PrayerTimeLayout() {
     date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
     const hour12 = date.getHours() % 12 || 12;
     const minute = date.getMinutes();
-    const period = date.getHours() >= 12 ? "PM" : "AM";
+    const period = date.getHours() >= 12 ? " PM" : " AM";
     const hourString = hour12.toString().padStart(2, "0");
     const minuteString = minute.toString().padStart(2, "0");
-    return `${hourString}:${minuteString} ${period}`;
+
+    const hoursFormat = `${hourString}:${minuteString}`;
+
+    return {
+      hours: hoursFormat,
+      period: period,
+    };
   };
 
   const PrayerTimeImage: any = {
@@ -246,8 +253,19 @@ export default function PrayerTimeLayout() {
                                       {item.slot}
                                     </div>
                                   </div>
-                                  <div className={Font.hourfont}>
-                                    {prayerTwelveHourFormat(item.time)}
+                                  <div
+                                    className={Font.hourfont}
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    <div>
+                                      {prayerTwelveHourFormat(item.time).hours}
+                                    </div>
+                                    <div style={{ marginLeft: "8px" }}>
+                                      {prayerTwelveHourFormat(item.time).period}
+                                    </div>
                                   </div>
                                 </div>
                               </span>
@@ -322,8 +340,19 @@ export default function PrayerTimeLayout() {
                                       {item.slot}
                                     </div>
                                   </div>
-                                  <div className={Font.hourfont}>
-                                    {prayerTwelveHourFormat(item.time)}
+                                  <div
+                                    className={Font.hourfont}
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    <div>
+                                      {prayerTwelveHourFormat(item.time).hours}
+                                    </div>
+                                    <div style={{ marginLeft: "8px" }}>
+                                      {prayerTwelveHourFormat(item.time).period}
+                                    </div>
                                   </div>
                                 </div>
                               </span>

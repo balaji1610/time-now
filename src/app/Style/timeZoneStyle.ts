@@ -38,9 +38,9 @@ const timeZoneStyle = () => {
       display: "flex",
       flexDirection: "column" as "column",
       height: isDesktopScreen ? "12rem" : "8rem",
-      alignItems: isDesktopScreen ? "center" : "flex-start",
-      justifyContent: isDesktopScreen ? "flex-end" : "center",
-      width: isDesktopScreen ? "4rem" : "100%",
+      alignItems: isDesktopScreen ? "flex-end" : "flex-start",
+      justifyContent: isDesktopScreen ? "center" : "center",
+      width: isDesktopScreen ? "7rem" : "100%",
     },
     currentCityParentCard: {
       display: "flex",
@@ -48,6 +48,7 @@ const timeZoneStyle = () => {
       justifyContent: "center",
       height: CityCardHeight,
       alignItems: isDesktopScreen ? "center" : "flex-end",
+      marginTop: "-9px",
     },
     currentCityLayout: {
       border: "1px solid rgba(0, 0, 0, 0.25)",
@@ -77,10 +78,11 @@ const timeZoneStyle = () => {
       width: isDesktopScreen ? "24rem" : "26rem",
       rowGap: "1rem",
       color: "#393E46",
+      marginLeft: isDesktopScreen ? "-32px" : "0",
     },
     hourFormatGrid: {
       display: "grid",
-      gridTemplateColumns: isDesktopScreen ? "91%  6%" : "auto auto",
+      gridTemplateColumns: isDesktopScreen ? "81%  10%" : "auto auto",
       columnGap: "10px",
       color: "#393E46",
     },

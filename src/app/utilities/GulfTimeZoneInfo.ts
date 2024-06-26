@@ -20,7 +20,7 @@ const GulfTimeZoneInfo = [
     country: "Kuwait",
   },
   {
-    city: "Manama",
+    city: "Bahrain",
     timeZone: "Asia/Bahrain",
     country: "Bahrain",
   },
