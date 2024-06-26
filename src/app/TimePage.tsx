@@ -86,7 +86,7 @@ export default function TimePage({ children }: TimePageProps) {
 
   if (pathname == "/") {
     navgationHeight = "33rem";
-  } else if (pathname == "/Prayer-Time") {
+  } else if (pathname == "/prayer-time") {
     if (isDesktopScreen) {
       navgationHeight = "33rem";
     }

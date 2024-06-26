@@ -52,7 +52,7 @@ export default function CountryTimeList(props: any) {
   let Cardwidth: string;
   if (pathname == "/") {
     Cardwidth = "6rem";
-  } else if (pathname == "/Prayer-Time") {
+  } else if (pathname == "/prayer-time") {
     if (isDesktopScreen) {
       Cardwidth = "8rem";
     } else {
