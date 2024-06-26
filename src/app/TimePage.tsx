@@ -40,7 +40,7 @@ export default function TimePage({ children }: TimePageProps) {
       [x: string]: string;
     } = {
       HOME: "/",
-      "PRAYER TIME": "./Prayer-Time",
+      "PRAYER TIME": "./prayer-time",
     };
     router.push(routering[currentRoute as string]);
   };
@@ -102,7 +102,7 @@ export default function TimePage({ children }: TimePageProps) {
     if (isDesktopScreen) {
       firstChildrenHeight = "35rem";
     } else {
-      firstChildrenHeight = "44rem";
+      firstChildrenHeight = "19rem";
     }
   }
 

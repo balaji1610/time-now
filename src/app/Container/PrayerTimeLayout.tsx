@@ -137,7 +137,6 @@ export default function PrayerTimeLayout() {
     }
     return imageColor;
   };
-
   return (
     <div>
       <Grid container xs={12} direction="column">
@@ -188,178 +187,263 @@ export default function PrayerTimeLayout() {
                   </div>
                 ) : (
                   <>
-                    {" "}
-                    <div
-                      style={PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout}
-                    >
+                    {isDesktopScreen ? (
+                      <>
+                        {" "}
+                        <div
+                          style={
+                            PrayerTimeLayoutStyles.prayerTimeCardHeaderLayout
+                          }
+                        >
+                          <div
+                            style={{
+                              width: isDesktopScreen ? "auto" : "24rem",
+                            }}
+                          >
+                            {firstPhasePrayerTime.map(
+                              (item: any, index: number) => {
+                                return (
+                                  <span key={index}>
+                                    {" "}
+                                    <div
+                                      style={{
+                                        backgroundColor: "white",
+                                        // border:
+                                        //   CardHover == index ? "1px solid #757575" : "",
+                                        display: "inline-flex",
+                                        flexDirection: "column" as "column",
+                                        width: isDesktopScreen
+                                          ? "10rem"
+                                          : "6rem",
+                                        color: "#393E46",
+                                        cursor: "pointer",
+                                        rowGap: "5px",
+                                        padding: isDesktopScreen
+                                          ? "25px"
+                                          : "28px",
+                                        alignItems: "center",
+                                        height: "4rem",
+                                        fontSize: "20px",
+                                        margin: isDesktopScreen
+                                          ? "14px"
+                                          : "15px",
+                                      }}
+                                      className={Font.city}
+                                      onMouseEnter={(e) =>
+                                        CardMouseEnter(e, index, "fistPhase")
+                                      }
+                                      onMouseLeave={() =>
+                                        CardMouseLeave("fistPhase")
+                                      }
+                                    >
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "row" as "row",
+                                          justifyContent: "normal",
+                                          // width: "10rem",
+                                        }}
+                                      >
+                                        {" "}
+                                        <div
+                                          style={{
+                                            color:
+                                              CardHover == index
+                                                ? prayerTimeColor(item.slot)
+                                                : "rgb(0, 0, 0)",
+                                          }}
+                                        >
+                                          {PrayerTimeImage[item.slot]}{" "}
+                                        </div>
+                                        <div
+                                          style={{
+                                            fontWeight: "600",
+                                            marginLeft: "8px",
+                                          }}
+                                        >
+                                          {item.slot}
+                                        </div>
+                                      </div>
+                                      <div
+                                        className={Font.hourfont}
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "row",
+                                        }}
+                                      >
+                                        <div>
+                                          {
+                                            prayerTwelveHourFormat(item.time)
+                                              .hours
+                                          }
+                                        </div>
+                                        <div style={{ marginLeft: "8px" }}>
+                                          {
+                                            prayerTwelveHourFormat(item.time)
+                                              .period
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </span>
+                                );
+                              }
+                            )}
+                          </div>
+                        </div>{" "}
+                      </>
+                    ) : (
                       <div
-                        style={{ width: isDesktopScreen ? "auto" : "24rem" }}
+                        style={{
+                          backgroundColor: "white",
+                          height: "12rem",
+                        }}
+                        className={Font.hourfont}
                       >
-                        {firstPhasePrayerTime.map(
-                          (item: any, index: number) => {
-                            return (
-                              <span key={index}>
-                                {" "}
-                                <div
-                                  style={{
-                                    backgroundColor: "white",
-                                    // border:
-                                    //   CardHover == index ? "1px solid #757575" : "",
-                                    display: "inline-flex",
-                                    flexDirection: "column" as "column",
-                                    width: isDesktopScreen ? "10rem" : "6rem",
-                                    color: "#393E46",
-                                    cursor: "pointer",
-                                    rowGap: "5px",
-                                    padding: isDesktopScreen ? "25px" : "28px",
-                                    alignItems: "center",
-                                    height: "4rem",
-                                    fontSize: "20px",
-                                    margin: isDesktopScreen ? "14px" : "15px",
-                                  }}
-                                  className={Font.city}
-                                  onMouseEnter={(e) =>
-                                    CardMouseEnter(e, index, "fistPhase")
-                                  }
-                                  onMouseLeave={() =>
-                                    CardMouseLeave("fistPhase")
-                                  }
-                                >
+                        {firstPhasePrayerTime.map((item: any) => {
+                          return (
+                            <div>
+                              <Grid container xs={12}>
+                                <Grid xs={6} sx={{ marginTop: "8px" }}>
                                   <div
                                     style={{
                                       display: "flex",
                                       flexDirection: "row" as "row",
-                                      justifyContent: "normal",
-                                      // width: "10rem",
+                                      marginLeft: "4rem",
                                     }}
                                   >
-                                    {" "}
                                     <div
                                       style={{
-                                        color:
-                                          CardHover == index
-                                            ? prayerTimeColor(item.slot)
-                                            : "rgb(0, 0, 0)",
+                                        width: "2rem",
                                       }}
                                     >
-                                      {PrayerTimeImage[item.slot]}{" "}
+                                      {PrayerTimeImage[item.slot]}
                                     </div>
-                                    <div
-                                      style={{
-                                        fontWeight: "600",
-                                        marginLeft: "8px",
-                                      }}
-                                    >
-                                      {item.slot}
-                                    </div>
+
+                                    <div style={{}}>{item.slot}</div>
                                   </div>
+                                </Grid>
+                                <Grid xs={6} sx={{ marginTop: "8px" }}>
                                   <div
-                                    className={Font.hourfont}
                                     style={{
                                       display: "flex",
-                                      flexDirection: "row",
+                                      flexDirection: "row" as "row",
+                                      justifyContent: "center",
+                                      alignItems: "center",
                                     }}
                                   >
                                     <div>
                                       {prayerTwelveHourFormat(item.time).hours}
                                     </div>
-                                    <div style={{ marginLeft: "8px" }}>
+                                    <div style={{ marginLeft: "5px" }}>
                                       {prayerTwelveHourFormat(item.time).period}
                                     </div>
                                   </div>
-                                </div>
-                              </span>
-                            );
-                          }
-                        )}
+                                </Grid>
+                              </Grid>
+                            </div>
+                          );
+                        })}
                       </div>
-                    </div>
+                    )}
+
                     <div style={{ marginTop: "1rem" }}>
                       <Divider variant="middle" />
-                      <div
-                        style={
-                          PrayerTimeLayoutStyles.secondPhaseCardHeaderLayout
-                        }
-                      >
-                        {secondPhasePrayerTime.map(
-                          (item: any, index: number) => {
-                            return (
-                              <span key={index}>
-                                {" "}
-                                <div
-                                  style={{
-                                    backgroundColor: "white",
-                                    // border:
-                                    //   secondCardHover == index
-                                    //     ? "1px solid #0288D1"
-                                    //     : "1px solid #00000029",
-                                    display: "inline-flex",
-                                    flexDirection: "column" as "column",
-                                    width: isDesktopScreen ? "10rem" : "6rem",
-                                    color: "#393E46",
-                                    cursor: "pointer",
-                                    rowGap: "5px",
-                                    padding: isDesktopScreen ? "25px" : "28px",
-                                    alignItems: "center",
-                                    height: "4rem",
-                                    fontSize: "20px",
-                                    margin: isDesktopScreen ? "14px" : "8px",
-                                  }}
-                                  className={Font.city}
-                                  onMouseEnter={(e) =>
-                                    CardMouseEnter(e, index, "secondphase")
-                                  }
-                                  onMouseLeave={() =>
-                                    CardMouseLeave("secondphase")
-                                  }
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "row" as "row",
-                                      justifyContent: "normal",
-                                    }}
-                                  >
-                                    {" "}
-                                    <div
-                                      style={{
-                                        color:
-                                          secondCardHover == index
-                                            ? prayerTimeColor(item.slot)
-                                            : "rgb(0, 0, 0)",
-                                      }}
-                                    >
-                                      {PrayerTimeImage[item.slot]}{" "}
-                                    </div>
-                                    <div
-                                      style={{
-                                        fontWeight: "600",
-                                        marginLeft: "8px",
-                                      }}
-                                    >
-                                      {item.slot}
-                                    </div>
-                                  </div>
-                                  <div
-                                    className={Font.hourfont}
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "row",
-                                    }}
-                                  >
-                                    <div>
-                                      {prayerTwelveHourFormat(item.time).hours}
-                                    </div>
-                                    <div style={{ marginLeft: "8px" }}>
-                                      {prayerTwelveHourFormat(item.time).period}
-                                    </div>
-                                  </div>
-                                </div>
-                              </span>
-                            );
+
+                      {isDesktopScreen && (
+                        <div
+                          style={
+                            PrayerTimeLayoutStyles.secondPhaseCardHeaderLayout
                           }
-                        )}
-                      </div>
+                        >
+                          {secondPhasePrayerTime.map(
+                            (item: any, index: number) => {
+                              return (
+                                <span key={index}>
+                                  {" "}
+                                  <div
+                                    style={{
+                                      backgroundColor: "white",
+                                      // border:
+                                      //   secondCardHover == index
+                                      //     ? "1px solid #0288D1"
+                                      //     : "1px solid #00000029",
+                                      display: "inline-flex",
+                                      flexDirection: "column" as "column",
+                                      width: isDesktopScreen ? "10rem" : "6rem",
+                                      color: "#393E46",
+                                      cursor: "pointer",
+                                      rowGap: "5px",
+                                      padding: isDesktopScreen
+                                        ? "25px"
+                                        : "28px",
+                                      alignItems: "center",
+                                      height: "4rem",
+                                      fontSize: "20px",
+                                      margin: isDesktopScreen ? "14px" : "8px",
+                                    }}
+                                    className={Font.city}
+                                    onMouseEnter={(e) =>
+                                      CardMouseEnter(e, index, "secondphase")
+                                    }
+                                    onMouseLeave={() =>
+                                      CardMouseLeave("secondphase")
+                                    }
+                                  >
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "row" as "row",
+                                        justifyContent: "normal",
+                                      }}
+                                    >
+                                      {" "}
+                                      <div
+                                        style={{
+                                          color:
+                                            secondCardHover == index
+                                              ? prayerTimeColor(item.slot)
+                                              : "rgb(0, 0, 0)",
+                                        }}
+                                      >
+                                        {PrayerTimeImage[item.slot]}{" "}
+                                      </div>
+                                      <div
+                                        style={{
+                                          fontWeight: "600",
+                                          marginLeft: "8px",
+                                        }}
+                                      >
+                                        {item.slot}
+                                      </div>
+                                    </div>
+                                    <div
+                                      className={Font.hourfont}
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                      }}
+                                    >
+                                      <div>
+                                        {
+                                          prayerTwelveHourFormat(item.time)
+                                            .hours
+                                        }
+                                      </div>
+                                      <div style={{ marginLeft: "8px" }}>
+                                        {
+                                          prayerTwelveHourFormat(item.time)
+                                            .period
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              );
+                            }
+                          )}
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
