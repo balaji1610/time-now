@@ -40,7 +40,7 @@ export default function TimePage({ children }: TimePageProps) {
       [x: string]: string;
     } = {
       HOME: "/",
-      "PRAYER TIME": "./prayer-time",
+      "PRAYER TIME": "/prayer-time",
     };
     router.push(routering[currentRoute as string]);
   };
