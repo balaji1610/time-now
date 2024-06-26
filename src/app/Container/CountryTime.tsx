@@ -9,7 +9,6 @@ import {
 } from "@/app/interface/commonInterface";
 
 export default function CountryTime() {
-    
   const timeZoneStyle = TimeZoneStyle();
   const {
     setLoading,
@@ -33,6 +32,7 @@ export default function CountryTime() {
     }, 1000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line
   }, []);
 
   const Timeoptions = {

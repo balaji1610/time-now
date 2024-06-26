@@ -2,7 +2,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
 let CityCardHeight: string;
 let CityCardMarginTop: string;
-const timeZoneStyle = () => {
+const TimeZoneStyle = () => {
   const isDesktopScreen = useMediaQuery("(min-width:600px)");
   const currentPath = usePathname();
 
@@ -96,4 +96,4 @@ const timeZoneStyle = () => {
   return timeZoneStyle;
 };
 
-export default timeZoneStyle;
+export default TimeZoneStyle;
