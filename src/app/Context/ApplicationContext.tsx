@@ -6,8 +6,8 @@ import React, {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
-
 import useMediaQuery from "@mui/material/useMediaQuery";
 import GulfTimeZoneInfo from "@/app/utilities/GulfTimeZoneInfo";
 
@@ -47,11 +47,20 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
   const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
   const [hover, setHover] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isDesktopScreen = useMediaQuery("(min-width:600px)");
   const isTabletScreen = useMediaQuery(
     "(min-width:1024px) and (max-width:1050px)"
   );
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <ApplicationContext.Provider
