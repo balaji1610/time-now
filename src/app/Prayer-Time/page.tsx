@@ -1,21 +1,20 @@
 "use client";
-import TimePage from "@/app/TimePage";
+import TimeLayout from "@/app/TimeLayout";
 import PrayerTimeLayout from "../Container/PrayerTimeLayout";
 import { ApplicationProvider } from "@/app/Context/ApplicationContext";
 import CountryTimeList from "@/app/Container/CountryTimeList";
-import TimeZoneInfo from "../utilities/TimeZoneInfo";
+import EmiratesTime from "../utilities/EmiratesTime";
 
 export default function PrayerTime() {
   return (
     <ApplicationProvider>
       {" "}
-      <TimePage>
+      <TimeLayout>
         <div style={{ height: "42rem" }}>
           <PrayerTimeLayout />
         </div>
-
-        <CountryTimeList list={TimeZoneInfo} />
-      </TimePage>
+        <CountryTimeList list={EmiratesTime} />
+      </TimeLayout>
     </ApplicationProvider>
   );
 }

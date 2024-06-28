@@ -2,6 +2,7 @@
 import { useApplicationContext } from "../Context/ApplicationContext";
 const PrayerTimeLayoutStyle = () => {
   const { isDesktopScreen } = useApplicationContext();
+
   const PrayerTimeLayoutStyles = {
     loading: {
       display: "flex",

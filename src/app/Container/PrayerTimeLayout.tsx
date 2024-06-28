@@ -1,19 +1,19 @@
 "use client";
-import { useApplicationContext } from "@/app/Context/ApplicationContext";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import Font from "@/app/page.module.css";
-import PrayerTimeLayoutStyle from "../Style/PrayerTimeLayoutStyle";
-
-import WbTwilightIcon from "@mui/icons-material/WbTwilight";
+import CircularProgress from "@mui/material/CircularProgress";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import UpcomingIcon from "@mui/icons-material/Upcoming";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import Brightness3Icon from "@mui/icons-material/Brightness3";
 import Divider from "@mui/material/Divider";
+import { Grid } from "@mui/material";
+
+import { useApplicationContext } from "@/app/Context/ApplicationContext";
+import Font from "@/app/page.module.css";
+import PrayerTimeLayoutStyle from "../Style/PrayerTimeLayoutStyle";
+import PrayerTimeList from "@/app/Container/PrayerTimeList";
+
 export default function PrayerTimeLayout() {
   const {
     loading,
@@ -23,10 +23,11 @@ export default function PrayerTimeLayout() {
     setLoading,
     setIsNotDisplayPrayerTime,
   } = useApplicationContext();
-  const [CardHover, setCardHover] = useState<number | null>(null);
 
+  const [CardHover, setCardHover] = useState<number | null>(null);
   const [secondCardHover, setSecondCardHover] = useState<number | null>(null);
   const [prayertime, setPrayerTime] = useState([]);
+
   const PrayerTimeLayoutStyles = PrayerTimeLayoutStyle();
 
   const fetchapi = async () => {
@@ -80,6 +81,7 @@ export default function PrayerTimeLayout() {
 
   const firstPhasePrayerTime = preparePrayerTimes.slice(0, 5);
   const secondPhasePrayerTime = preparePrayerTimes.slice(-2);
+
   const CardMouseEnter = (e: any, index: number, para: string) => {
     if (para == "fistPhase") {
       setCardHover(index);
@@ -138,6 +140,7 @@ export default function PrayerTimeLayout() {
     }
     return imageColor;
   };
+
   return (
     <div>
       <Grid container xs={12} direction="column">
@@ -209,8 +212,6 @@ export default function PrayerTimeLayout() {
                                     <div
                                       style={{
                                         backgroundColor: "white",
-                                        // border:
-                                        //   CardHover == index ? "1px solid #757575" : "",
                                         display: "inline-flex",
                                         flexDirection: "column" as "column",
                                         width: isDesktopScreen
@@ -242,7 +243,6 @@ export default function PrayerTimeLayout() {
                                           display: "flex",
                                           flexDirection: "row" as "row",
                                           justifyContent: "normal",
-                                          // width: "10rem",
                                         }}
                                       >
                                         {" "}
@@ -294,68 +294,14 @@ export default function PrayerTimeLayout() {
                         </div>{" "}
                       </>
                     ) : (
-                      <div
-                        style={{
-                          backgroundColor: "white",
-                          height: "12rem",
-                        }}
-                        className={Font.hourfont}
-                      >
-                        {firstPhasePrayerTime.map(
-                          (item: any, index: number) => {
-                            return (
-                              <div key={index}>
-                                <Grid container xs={12}>
-                                  <Grid xs={6} sx={{ marginTop: "8px" }}>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        flexDirection: "row" as "row",
-                                        marginLeft: "4rem",
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          width: "2rem",
-                                        }}
-                                      >
-                                        {PrayerTimeImage[item.slot]}
-                                      </div>
-
-                                      <div style={{}}>{item.slot}</div>
-                                    </div>
-                                  </Grid>
-                                  <Grid xs={6} sx={{ marginTop: "8px" }}>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        flexDirection: "row" as "row",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                      }}
-                                    >
-                                      <div>
-                                        {
-                                          prayerTwelveHourFormat(item.time)
-                                            .hours
-                                        }
-                                      </div>
-                                      <div style={{ marginLeft: "5px" }}>
-                                        {
-                                          prayerTwelveHourFormat(item.time)
-                                            .period
-                                        }
-                                      </div>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                              </div>
-                            );
-                          }
-                        )}
+                      <div>
+                        <PrayerTimeList
+                          PrayerTimeImage={PrayerTimeImage}
+                          firstPhasePrayerTime={firstPhasePrayerTime}
+                          prayerTwelveHourFormat={prayerTwelveHourFormat}
+                        />
                       </div>
                     )}
-
                     <div style={{ marginTop: "1rem" }}>
                       <Divider variant="middle" />
 
@@ -373,10 +319,6 @@ export default function PrayerTimeLayout() {
                                   <div
                                     style={{
                                       backgroundColor: "white",
-                                      // border:
-                                      //   secondCardHover == index
-                                      //     ? "1px solid #0288D1"
-                                      //     : "1px solid #00000029",
                                       display: "inline-flex",
                                       flexDirection: "column" as "column",
                                       width: isDesktopScreen ? "10rem" : "6rem",

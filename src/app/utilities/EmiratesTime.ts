@@ -1,4 +1,4 @@
-const TimeZoneInfo = [
+const EmiratesTime = [
   {
     city: "Abu Dhabi",
     timeZone: "Asia/Dubai",
@@ -30,4 +30,4 @@ const TimeZoneInfo = [
   },
 ];
 
-export default TimeZoneInfo;
+export default EmiratesTime;

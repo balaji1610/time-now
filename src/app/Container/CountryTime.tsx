@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+
 import Font from "@/app/page.module.css";
 import TimeZoneStyle from "@/app/Style/timeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
@@ -10,21 +11,7 @@ import {
 
 export default function CountryTime() {
   const timeZoneStyle = TimeZoneStyle();
-  const {
-    setLoading,
-    currentCity,
-    setCurrentCity,
-    setIsNotDisplayPrayerTime,
-    isDesktopScreen,
-    time,
-    setTime,
-    currentTimeDate,
-    setCurrentTimeDate,
-    timeZone,
-    setTimeZone,
-    hover,
-    setHover,
-  } = useApplicationContext();
+  const { time, setTime, currentTimeDate, timeZone } = useApplicationContext();
 
   useEffect(() => {
     const intervalId = setInterval(() => {

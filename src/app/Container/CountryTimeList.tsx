@@ -8,6 +8,7 @@ import {
   TimeZoneInfoType,
 } from "@/app/interface/commonInterface";
 import { usePathname } from "next/navigation";
+
 let Cardwidth: string;
 export default function CountryTimeList(props: any) {
   const { list } = props;
@@ -84,7 +85,7 @@ export default function CountryTimeList(props: any) {
                       border: "1px solid #999999",
                       display: "inline-flex",
                       flexDirection: "column" as "column",
-                      width: "6rem",
+                      width: isTabletScreen ? "7rem" : "6rem",
                       whiteSpace: "nowrap",
                       color: isClicked
                         ? "white"

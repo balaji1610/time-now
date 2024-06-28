@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import HomeIcon from "@mui/icons-material/Home";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -12,17 +11,20 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRouter } from "next/navigation";
+
+import { useRouter, usePathname } from "next/navigation";
+
+import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import Font from "@/app/page.module.css";
-import { usePathname } from "next/navigation";
+
 interface TimePageProps {
   children: [React.ReactNode, React.ReactNode];
 }
-let navgationHeight: string;
+
 let firstChildrenHeight: string;
 let firstChildrenMargin: string;
+
 export default function TimePage({ children }: TimePageProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -86,14 +88,6 @@ export default function TimePage({ children }: TimePageProps) {
   );
 
   if (pathname == "/") {
-    navgationHeight = "5rem";
-  } else if (pathname == "/prayer-time") {
-    if (isDesktopScreen) {
-      navgationHeight = "5rem";
-    }
-  }
-
-  if (pathname == "/") {
     if (isDesktopScreen) {
       firstChildrenHeight = "35rem";
       firstChildrenMargin = "12px";
@@ -113,24 +107,6 @@ export default function TimePage({ children }: TimePageProps) {
 
   return (
     <>
-      {/* <Grid
-        container
-        xs={12}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        height="5rem"
-        width="6%"
-      >
-        <Grid>
-          <MenuRoundedIcon
-            fontSize="large"
-            sx={{ cursor: "pointer", pointerEvents: "auto" }}
-            onClick={openSidebar}
-          />
-        </Grid>
-      </Grid> */}
-
       <Grid
         container
         xs={12}
@@ -147,7 +123,7 @@ export default function TimePage({ children }: TimePageProps) {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: isDesktopScreen ? "center" : "center",
-              height: isDesktopScreen ? navgationHeight : "5rem",
+              height: "5rem",
               width: "5rem",
             }}
           >
