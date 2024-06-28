@@ -22,6 +22,7 @@ interface TimePageProps {
 }
 let navgationHeight: string;
 let firstChildrenHeight: string;
+let firstChildrenMargin: string;
 export default function TimePage({ children }: TimePageProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -95,14 +96,18 @@ export default function TimePage({ children }: TimePageProps) {
   if (pathname == "/") {
     if (isDesktopScreen) {
       firstChildrenHeight = "35rem";
+      firstChildrenMargin = "12px";
     } else {
       firstChildrenHeight = "21rem";
+      firstChildrenMargin = "0px";
     }
   } else {
     if (isDesktopScreen) {
       firstChildrenHeight = "35rem";
+      firstChildrenMargin = "12px";
     } else {
       firstChildrenHeight = "19rem";
+      firstChildrenMargin = "0px";
     }
   }
 
@@ -132,9 +137,9 @@ export default function TimePage({ children }: TimePageProps) {
         direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
-        height="100vh"
+        height="97vh"
       >
-        <Grid xs={isDesktopScreen ? 1 : 12}>
+        <Grid xs={isDesktopScreen ? 1 : 12} md={1} lg={1}>
           {" "}
           <div
             style={{
@@ -160,7 +165,7 @@ export default function TimePage({ children }: TimePageProps) {
             </>
           </div>
         </Grid>
-        <Grid xs={isDesktopScreen ? 7 : 12}>
+        <Grid xs={isDesktopScreen ? 7 : 12} md={7} lg={7}>
           <div
             style={{
               display: "inline-flex",
@@ -168,13 +173,14 @@ export default function TimePage({ children }: TimePageProps) {
               justifyContent: "flex-start",
               width: "100%",
               height: firstChildrenHeight,
+              marginTop: firstChildrenMargin,
             }}
           >
             {" "}
             {children[0]}
           </div>
         </Grid>
-        <Grid xs={isDesktopScreen ? 4 : 12}>
+        <Grid xs={isDesktopScreen ? 4 : 12} md={4} lg={4}>
           <div
             style={{
               height: isDesktopScreen ? "100vh" : "auto",

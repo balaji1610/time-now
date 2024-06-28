@@ -11,11 +11,6 @@ const PrayerTimeLayoutStyle = () => {
     },
     prayerTimeCardHeaderLayout: {
       marginLeft: isDesktopScreen ? "0" : "15px",
-      // display: "flex",
-      // flexDirection: "row" as "row",
-      // justifyContent: "center",
-      // height: isDesktopScreen ? "16rem" : "27rem",
-      // alignItems: "center",
     },
 
     secondPhaseCardHeaderLayout: {

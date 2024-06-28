@@ -8,7 +8,7 @@ import {
   TimeZoneInfoType,
 } from "@/app/interface/commonInterface";
 import { usePathname } from "next/navigation";
-
+let Cardwidth: string;
 export default function CountryTimeList(props: any) {
   const { list } = props;
   const pathname = usePathname();
@@ -23,6 +23,7 @@ export default function CountryTimeList(props: any) {
     setTimeZone,
     hover,
     setHover,
+    isTabletScreen,
   } = useApplicationContext();
 
   const currentCityTime = (city: string) => {
@@ -49,12 +50,13 @@ export default function CountryTimeList(props: any) {
     setHover(null);
   };
 
-  let Cardwidth: string;
   if (pathname == "/") {
     Cardwidth = "6rem";
   } else if (pathname == "/prayer-time") {
     if (isDesktopScreen) {
       Cardwidth = "8rem";
+    } else if (isTabletScreen) {
+      Cardwidth = "7rem";
     } else {
       Cardwidth = "6rem";
     }
@@ -82,7 +84,7 @@ export default function CountryTimeList(props: any) {
                       border: "1px solid #999999",
                       display: "inline-flex",
                       flexDirection: "column" as "column",
-                      width: Cardwidth,
+                      width: "6rem",
                       whiteSpace: "nowrap",
                       color: isClicked
                         ? "white"

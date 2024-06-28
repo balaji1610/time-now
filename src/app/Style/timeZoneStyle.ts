@@ -1,10 +1,11 @@
 "use client";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
+import { useApplicationContext } from "@/app/Context/ApplicationContext";
+
 let CityCardHeight: string;
 let CityCardMarginTop: string;
 const TimeZoneStyle = () => {
-  const isDesktopScreen = useMediaQuery("(min-width:600px)");
+  const { isDesktopScreen, isTabletScreen } = useApplicationContext();
   const currentPath = usePathname();
 
   if (currentPath == "/") {
@@ -33,7 +34,7 @@ const TimeZoneStyle = () => {
       color: "#393E46",
     },
     cityTime: {
-      fontSize: isDesktopScreen ? "10rem" : "4rem",
+      fontSize: isDesktopScreen ? (isTabletScreen ? "8rem" : "10rem") : "4rem",
       display: "flex",
       lineHeight: isDesktopScreen ? "11rem" : "8rem",
       flexDirection: "row" as "row",
@@ -43,9 +44,9 @@ const TimeZoneStyle = () => {
       fontSize: isDesktopScreen ? "3rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
-      height: isDesktopScreen ? "12rem" : "8rem",
+      height: isDesktopScreen ? "9rem" : "8rem",
       alignItems: isDesktopScreen ? "flex-end" : "flex-start",
-      justifyContent: isDesktopScreen ? "center" : "center",
+      justifyContent: isDesktopScreen ? "flex-end" : "center",
       width: isDesktopScreen ? "7rem" : "100%",
     },
     currentCityParentCard: {
