@@ -99,20 +99,21 @@ export default function PrayerTimeLayout() {
   };
 
   const prayerTwelveHourFormat = (time24: string) => {
-    const [hours, minutes] = time24.split(":");
+    const options1 = {
+      timeStyle: "short",
+      hour12: true,
+    };
     const date = new Date();
-    date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
-    const hour12 = date.getHours() % 12 || 12;
-    const minute = date.getMinutes();
-    const period = date.getHours() >= 12 ? " PM" : " AM";
-    const hourString = hour12.toString().padStart(2, "0");
-    const minuteString = minute.toString().padStart(2, "0");
+    const time = time24.split(":");
+    date.setHours(Number(time[0]));
+    date.setMinutes(Number(time[1]));
 
-    const hoursFormat = `${hourString}:${minuteString}`;
-
+    const prayerTime = new Intl.DateTimeFormat("en-US", options1 as any)
+      .format(date)
+      .split(" ");
     return {
-      hours: hoursFormat,
-      period: period,
+      hour: prayerTime[0],
+      period: prayerTime[1],
     };
   };
 
@@ -275,7 +276,7 @@ export default function PrayerTimeLayout() {
                                         <div>
                                           {
                                             prayerTwelveHourFormat(item.time)
-                                              .hours
+                                              .hour
                                           }
                                         </div>
                                         <div style={{ marginLeft: "8px" }}>
@@ -376,10 +377,7 @@ export default function PrayerTimeLayout() {
                                       }}
                                     >
                                       <div>
-                                        {
-                                          prayerTwelveHourFormat(item.time)
-                                            .hours
-                                        }
+                                        {prayerTwelveHourFormat(item.time).hour}
                                       </div>
                                       <div style={{ marginLeft: "8px" }}>
                                         {

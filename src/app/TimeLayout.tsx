@@ -12,7 +12,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import CloseIcon from "@mui/icons-material/Close";
-
 import { useRouter, usePathname } from "next/navigation";
 
 import { useApplicationContext } from "@/app/Context/ApplicationContext";

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 import Font from "@/app/page.module.css";
-import TimeZoneStyle from "@/app/Style/timeZoneStyle";
+import TimeZoneStyle from "@/app/Style/TimeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
   timeOptionsType,

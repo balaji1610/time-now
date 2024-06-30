@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Font from "@/app/page.module.css";
-import TimeZoneStyle from "@/app/Style/timeZoneStyle";
+import TimeZoneStyle from "@/app/Style/TimeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
   timeOptionsType,
@@ -9,7 +9,6 @@ import {
 } from "@/app/interface/commonInterface";
 import { usePathname } from "next/navigation";
 
-let Cardwidth: string;
 export default function CountryTimeList(props: any) {
   const { list } = props;
   const pathname = usePathname();
@@ -50,18 +49,6 @@ export default function CountryTimeList(props: any) {
   const MouseLeave = () => {
     setHover(null);
   };
-
-  if (pathname == "/") {
-    Cardwidth = "6rem";
-  } else if (pathname == "/prayer-time") {
-    if (isDesktopScreen) {
-      Cardwidth = "8rem";
-    } else if (isTabletScreen) {
-      Cardwidth = "7rem";
-    } else {
-      Cardwidth = "6rem";
-    }
-  }
 
   return (
     <div>
