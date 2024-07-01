@@ -44,7 +44,7 @@ const TimeZoneStyle = () => {
       fontSize: isDesktopScreen ? "3rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
-      height: isDesktopScreen ? "9rem" : "6rem",
+      height: isDesktopScreen ? (isTabletScreen ? "9rem" : "10rem") : "6rem",
       alignItems: isDesktopScreen ? "flex-end" : "flex-start",
       justifyContent: isDesktopScreen ? "flex-end" : "flex-end",
       width: isDesktopScreen ? "7rem" : "100%",

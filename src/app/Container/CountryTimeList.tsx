@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Font from "@/app/page.module.css";
-import TimeZoneStyle from "@/app/Style/TimeZoneStyle";
+import TimeZoneStyle from "@/app/Style/timeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
   timeOptionsType,

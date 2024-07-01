@@ -46,7 +46,7 @@ export default function PrayerTimeList(props: any) {
                     alignItems: "center",
                   }}
                 >
-                  <div>{prayerTwelveHourFormat(item.time).hours}</div>
+                  <div>{prayerTwelveHourFormat(item.time).hour}</div>
                   <div style={{ marginLeft: "5px" }}>
                     {prayerTwelveHourFormat(item.time).period}
                   </div>

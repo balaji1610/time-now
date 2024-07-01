@@ -34,7 +34,7 @@ export default function PrayerTimeLayout() {
     try {
       setLoading(true);
       const getFetchapi = await fetch(
-        "http://api.aladhan.com/v1/timingsByAddress?address=Dubai"
+        "https://api.aladhan.com/v1/timingsByAddress?address=Dubai"
       );
       const reponse = await getFetchapi.json();
       if (reponse.code == "200") {
@@ -157,6 +157,7 @@ export default function PrayerTimeLayout() {
                     color: "#393E46",
                     fontWeight: "400",
                     textAlign: "center",
+                    height: "3rem",
                   }}
                 >
                   Prayer Times in &nbsp;
