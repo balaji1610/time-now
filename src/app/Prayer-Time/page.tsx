@@ -1,8 +1,8 @@
 "use client";
 import TimeLayout from "@/app/TimeLayout";
-import PrayerTimeLayout from "../Container/PrayerTimeLayout";
+import PrayerTimeLayout from "../Container/PrayerTime";
 import { ApplicationProvider } from "@/app/Context/ApplicationContext";
-import CountryTimeList from "@/app/Container/CountryTimeList";
+import CountryTime from "@/app/Container/CountryTime";
 import EmiratesTime from "../utilities/EmiratesTime";
 
 export default function PrayerTime() {
@@ -10,10 +10,8 @@ export default function PrayerTime() {
     <ApplicationProvider>
       {" "}
       <TimeLayout>
-        <div style={{ height: "42rem" }}>
-          <PrayerTimeLayout />
-        </div>
-        <CountryTimeList list={EmiratesTime} />
+        <PrayerTimeLayout />
+        <CountryTime timeLists={EmiratesTime} />
       </TimeLayout>
     </ApplicationProvider>
   );

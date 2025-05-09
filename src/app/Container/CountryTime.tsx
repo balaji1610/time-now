@@ -1,83 +1,116 @@
 "use client";
-import React, { useEffect } from "react";
-
+import React from "react";
 import Font from "@/app/page.module.css";
-import TimeZoneStyle from "@/app/Style/timeZoneStyle";
+import TimeZoneStyle from "@/app/Style/TimeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import {
-  timeOptionsType,
-  DateOptionsType,
+  TimeZoneInfoType,
+  EmiratesTimeType,
+  TimeListsType,
 } from "@/app/interface/commonInterface";
+import { usePathname } from "next/navigation";
+import { currentCityTime } from "@/app/lib/lib";
 
-export default function CountryTime() {
+export default function CountryTime(props: TimeListsType) {
+  const { timeLists } = props;
+  const pathname = usePathname();
   const timeZoneStyle = TimeZoneStyle();
-  const { time, setTime, currentTimeDate, timeZone } = useApplicationContext();
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+  const {
+    currentCity,
+    setCurrentCity,
+    isDesktopScreen,
+    time,
+    setCurrentTimeDate,
+    setTimeZone,
+    hover,
+    setHover,
+    isTabletScreen,
+  } = useApplicationContext();
 
-    return () => clearInterval(intervalId);
-    // eslint-disable-next-line
-  }, []);
-
-  const Timeoptions = {
-    timeStyle: "medium",
-    timeZone: timeZone,
-    hour12: true,
+  const handleOnClick = (item: TimeZoneInfoType) => {
+    setCurrentTimeDate(item);
+    setTimeZone(item.timeZone);
+    setCurrentCity(item.city);
   };
 
-  const cityTime = new Intl.DateTimeFormat(
-    "en-GB",
-    Timeoptions as timeOptionsType
-  )
-    .format(time)
-    .split(" ");
-
-  const DateOptions = {
-    dateStyle: "full",
-    timeZone: timeZone,
+  const handleOnMouseEnter = (
+    e: React.MouseEvent<HTMLDivElement>,
+    index: number
+  ) => {
+    setHover(index);
   };
 
-  const cityDate = new Intl.DateTimeFormat(
-    "en-GB",
-    DateOptions as DateOptionsType
-  ).format(time);
-
-  const regionalDate = new Intl.DateTimeFormat(
-    "en-US-u-ca-islamic",
-    DateOptions as DateOptionsType
-  )
-    .format(time)
-    .split(",")
-    .slice(1, 3)
-    .join(",");
+  const handleOnMouseLeave = () => {
+    setHover(null);
+  };
 
   return (
     <div>
-      <h2
-        className={Font.city}
-        style={{ color: "#393E46", fontWeight: "400", textAlign: "center" }}
-      >
-        Time in&nbsp;
-        <span style={{ color: "#393E46", fontWeight: "900" }}>
-          {currentTimeDate.city}
-        </span>{" "}
-        now
-      </h2>
-      <div className={Font.hourfont} style={timeZoneStyle.hourFormatGrid}>
-        <div style={timeZoneStyle.cityTime}> {cityTime[0]}</div>
-        <div style={timeZoneStyle.hourFormat}>{cityTime[1].toUpperCase()}</div>
-      </div>
-      <div className={Font.city} style={timeZoneStyle.dateLayout}>
-        <div>
-          {" "}
-          <h3 style={timeZoneStyle.date}>{cityDate}</h3>
-        </div>
-        <div>
-          {" "}
-          <h5 style={timeZoneStyle.regionaldate}>{regionalDate}</h5>
+      {" "}
+      <div style={timeZoneStyle.currentCityParentCard}>
+        <div style={{ width: "24rem" }}>
+          <div>
+            {timeLists.map(
+              (el: TimeZoneInfoType | EmiratesTimeType, index: number) => {
+                const { city, timeZone } = el;
+                const isHovered = hover === index;
+                const isClicked = currentCity === city;
+                return (
+                  <span key={index}>
+                    <div
+                      style={{
+                        backgroundColor: isClicked
+                          ? "#999999"
+                          : isHovered
+                          ? "#999999"
+                          : "#EEEEEE",
+                        border: "1px solid #999999",
+                        display: "inline-flex",
+                        flexDirection: "column" as "column",
+                        width: isTabletScreen ? "7rem" : "6rem",
+                        whiteSpace: "nowrap",
+                        color: isClicked
+                          ? "#FFFFFF"
+                          : isHovered
+                          ? "#FFFFFF"
+                          : "#393E46",
+                        cursor: "pointer",
+                        rowGap: "6px",
+                        padding: isDesktopScreen ? "10px" : "28px",
+                        alignItems: "center",
+                        fontWeight: "900",
+                        margin: "1rem",
+                      }}
+                      onMouseEnter={(e) => handleOnMouseEnter(e, index)}
+                      onMouseLeave={handleOnMouseLeave}
+                      onClick={() => handleOnClick(el)}
+                    >
+                      <div className={Font.montFont}> {city}</div>
+                      <div
+                        className={Font.robotoFont}
+                        style={{
+                          display:
+                            !isDesktopScreen && pathname == "/prayer-time"
+                              ? "none"
+                              : "flex",
+                          flexDirection: "row",
+                          fontWeight: "400",
+                          fontSize: "18px",
+                        }}
+                      >
+                        <div>{currentCityTime(timeZone).hour}</div>
+                        <div style={{ marginLeft: "5px" }}>
+                          {" "}
+                          {currentCityTime(timeZone).period}
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                );
+              }
+            )}
+          </div>
         </div>
       </div>
     </div>

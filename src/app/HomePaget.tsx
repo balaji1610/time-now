@@ -1,7 +1,7 @@
 "use client";
 import TimeLayout from "./TimeLayout";
+import Time from "./Container/Time";
 import CountryTime from "./Container/CountryTime";
-import CountryTimeList from "./Container/CountryTimeList";
 import GulfTimeZoneInfo from "@/app/utilities/GulfTimeZoneInfo";
 
 export default function HomePage() {
@@ -9,8 +9,8 @@ export default function HomePage() {
     <div>
       <>
         <TimeLayout>
-          <CountryTime />
-          <CountryTimeList list={GulfTimeZoneInfo} />
+          <Time />
+          <CountryTime timeLists={GulfTimeZoneInfo} />
         </TimeLayout>
       </>
     </div>

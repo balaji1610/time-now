@@ -1,18 +1,16 @@
 import { Grid } from "@mui/material";
-
 import Font from "@/app/page.module.css";
 
 export default function PrayerTimeList(props: any) {
-  const { PrayerTimeImage, prayerTwelveHourFormat, firstPhasePrayerTime } =
-    props;
+  const { prayerTimeIcon, prayerTimePeriod, firstPhasePrayerTime } = props;
 
   return (
     <div
       style={{
-        backgroundColor: "white",
+        backgroundColor: "#FFFFFF",
         height: "12rem",
       }}
-      className={Font.hourfont}
+      className={Font.robotoFont}
     >
       {firstPhasePrayerTime.map((item: any, index: number) => {
         return (
@@ -23,7 +21,7 @@ export default function PrayerTimeList(props: any) {
                   style={{
                     display: "flex",
                     flexDirection: "row" as "row",
-                    marginLeft: "4rem",
+                    marginLeft: "2rem",
                   }}
                 >
                   <div
@@ -31,10 +29,10 @@ export default function PrayerTimeList(props: any) {
                       width: "2rem",
                     }}
                   >
-                    {PrayerTimeImage[item.slot]}
+                    {prayerTimeIcon[item.prayer]}
                   </div>
 
-                  <div>{item.slot}</div>
+                  <div>{item.prayer}</div>
                 </div>
               </Grid>
               <Grid xs={6} sx={{ marginTop: "8px" }}>
@@ -46,9 +44,9 @@ export default function PrayerTimeList(props: any) {
                     alignItems: "center",
                   }}
                 >
-                  <div>{prayerTwelveHourFormat(item.time).hour}</div>
+                  <div>{prayerTimePeriod(item.time).hour}</div>
                   <div style={{ marginLeft: "5px" }}>
-                    {prayerTwelveHourFormat(item.time).period}
+                    {prayerTimePeriod(item.time).period}
                   </div>
                 </div>
               </Grid>

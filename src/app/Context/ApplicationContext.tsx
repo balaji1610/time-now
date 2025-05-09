@@ -10,21 +10,22 @@ import React, {
 } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import GulfTimeZoneInfo from "@/app/utilities/GulfTimeZoneInfo";
+import { TimeZoneInfoType } from "@/app/interface/commonInterface";
 
 interface ApplicationContextType {
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   currentCity: string;
   setCurrentCity: Dispatch<SetStateAction<string>>;
   isNotDisplayPrayerTime: boolean;
   setIsNotDisplayPrayerTime: Dispatch<SetStateAction<boolean>>;
   isDesktopScreen: boolean;
-  time: any;
-  setTime: Dispatch<SetStateAction<any>>;
-  currentTimeDate: any;
-  setCurrentTimeDate: Dispatch<SetStateAction<any>>;
-  timeZone: any;
-  setTimeZone: Dispatch<SetStateAction<any>>;
+  time: Date;
+  setTime: Dispatch<SetStateAction<Date>>;
+  currentTimeDate: TimeZoneInfoType;
+  setCurrentTimeDate: Dispatch<SetStateAction<TimeZoneInfoType>>;
+  timeZone: string;
+  setTimeZone: Dispatch<SetStateAction<string>>;
   hover: any;
   setHover: Dispatch<SetStateAction<any>>;
   isTabletScreen: boolean;
@@ -39,15 +40,19 @@ interface ContextProps {
 }
 
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [currentCity, setCurrentCity] = useState("Dubai");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentCity, setCurrentCity] = useState<string>("Dubai");
   const [isNotDisplayPrayerTime, setIsNotDisplayPrayerTime] =
     useState<boolean>(false);
-  const [time, setTime] = useState(new Date());
-  const [currentTimeDate, setCurrentTimeDate] = useState(GulfTimeZoneInfo[1]);
-  const [timeZone, setTimeZone] = useState(GulfTimeZoneInfo[1].timeZone);
+  const [time, setTime] = useState<Date>(new Date());
+  const [currentTimeDate, setCurrentTimeDate] = useState<TimeZoneInfoType>(
+    GulfTimeZoneInfo[1]
+  );
+  const [timeZone, setTimeZone] = useState<string>(
+    GulfTimeZoneInfo[1].timeZone
+  );
   const [hover, setHover] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
     setMounted(true);
@@ -65,8 +70,8 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   return (
     <ApplicationContext.Provider
       value={{
-        loading,
-        setLoading,
+        isLoading,
+        setIsLoading,
         currentCity,
         setCurrentCity,
         isNotDisplayPrayerTime,

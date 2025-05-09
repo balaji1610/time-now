@@ -11,113 +11,94 @@ import { Grid } from "@mui/material";
 
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 import Font from "@/app/page.module.css";
-import PrayerTimeLayoutStyle from "../Style/PrayerTimeLayoutStyle";
+import PrayerTimeLayoutStyle from "../Style/PrayerTimeStyle";
 import PrayerTimeList from "@/app/Container/PrayerTimeList";
+import { PrayerTimeIconType } from "@/app/interface/commonInterface";
+import { prayerNames, prayerTimePeriod } from "@/app/lib/lib";
 
 export default function PrayerTimeLayout() {
   const {
-    loading,
+    isLoading,
     currentCity,
     isNotDisplayPrayerTime,
     isDesktopScreen,
-    setLoading,
+    setIsLoading,
     setIsNotDisplayPrayerTime,
   } = useApplicationContext();
 
-  const [CardHover, setCardHover] = useState<number | null>(null);
-  const [secondCardHover, setSecondCardHover] = useState<number | null>(null);
+  const [firstPhasePrayerHover, setFirstPhasePrayerHover] = useState<
+    number | null
+  >(null);
+  const [secodPhasePrayerHover, setSecodPhasePrayerHover] = useState<
+    number | null
+  >(null);
   const [prayertime, setPrayerTime] = useState([]);
 
   const PrayerTimeLayoutStyles = PrayerTimeLayoutStyle();
 
-  const fetchapi = async () => {
+  const getPrayerTiming = async () => {
     try {
-      setLoading(true);
-      const getFetchapi = await fetch(
+      setIsLoading(true);
+      const dubaiPrayerTiming = await fetch(
         "https://api.aladhan.com/v1/timingsByAddress?address=Dubai"
       );
-      const reponse = await getFetchapi.json();
+      const reponse = await dubaiPrayerTiming.json();
       if (reponse.code == "200") {
         setPrayerTime(reponse.data.timings);
       } else {
-        setLoading(false);
+        setIsLoading(false);
         setPrayerTime([]);
         setIsNotDisplayPrayerTime(true);
       }
-      setLoading(false);
+      setIsLoading(false);
     } catch (error) {
-      setLoading(false);
+      setIsLoading(false);
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchapi();
+    getPrayerTiming();
     // eslint-disable-next-line
   }, []);
 
-  const prayerTimeSlot = [
-    "Fajr",
-    "Dhuhr",
-    "Asr",
-    "Maghrib",
-    "Isha",
-    "Sunrise",
-    "Sunset",
-  ];
-
   const prayerTimeLists = Object.entries(prayertime).map(([key, value]) => {
     return {
-      ["slot"]: key,
+      ["prayer"]: key,
       ["time"]: value,
     };
   });
 
-  const preparePrayerTimes = prayerTimeSlot
+  const preparePrayerTimes = prayerNames
     .map((el) => {
-      return prayerTimeLists.find((item) => el == item.slot);
+      return prayerTimeLists.find((item) => el == item.prayer);
     })
     .filter((el) => el != undefined);
 
   const firstPhasePrayerTime = preparePrayerTimes.slice(0, 5);
   const secondPhasePrayerTime = preparePrayerTimes.slice(-2);
 
-  const CardMouseEnter = (e: any, index: number, para: string) => {
-    if (para == "fistPhase") {
-      setCardHover(index);
+  const handleOnMouseEnter = (
+    e: React.MouseEvent<HTMLDivElement>,
+    index: number,
+    para: string
+  ) => {
+    if (para == "firstPhasePrayer") {
+      setFirstPhasePrayerHover(index);
     } else {
-      setSecondCardHover(index);
+      setSecodPhasePrayerHover(index);
     }
   };
 
-  const CardMouseLeave = (para: string) => {
-    if (para == "fistPhase") {
-      setCardHover(null);
+  const handleOnMouseLeave = (para: string) => {
+    if (para == "firstPhasePrayer") {
+      setFirstPhasePrayerHover(null);
     } else {
-      setSecondCardHover(null);
+      setSecodPhasePrayerHover(null);
     }
   };
 
-  const prayerTwelveHourFormat = (time24: string) => {
-    const options1 = {
-      timeStyle: "short",
-      hour12: true,
-    };
-    const date = new Date();
-    const time = time24.split(":");
-    date.setHours(Number(time[0]));
-    date.setMinutes(Number(time[1]));
-
-    const prayerTime = new Intl.DateTimeFormat("en-US", options1 as any)
-      .format(date)
-      .split(" ");
-    return {
-      hour: prayerTime[0],
-      period: prayerTime[1],
-    };
-  };
-
-  const PrayerTimeImage: any = {
+  const prayerTimeIcon: PrayerTimeIconType = {
     Fajr: <UpcomingIcon />,
     Dhuhr: <WbSunnyIcon />,
     Asr: <LightModeIcon />,
@@ -127,9 +108,9 @@ export default function PrayerTimeLayout() {
     Sunset: <WbSunnyIcon />,
   };
 
-  const prayerTimeColor = (slot: string) => {
+  const prayerTimeColor = (prayer: string) => {
     let imageColor;
-    switch (slot) {
+    switch (prayer) {
       case "Maghrib":
         imageColor = "#03A9F4";
         break;
@@ -152,7 +133,7 @@ export default function PrayerTimeLayout() {
               <div>
                 {" "}
                 <h2
-                  className={Font.city}
+                  className={Font.montFont}
                   style={{
                     color: "#393E46",
                     fontWeight: "400",
@@ -187,8 +168,8 @@ export default function PrayerTimeLayout() {
               </div>
             ) : (
               <div>
-                {loading ? (
-                  <div style={PrayerTimeLayoutStyles.loading}>
+                {isLoading ? (
+                  <div style={PrayerTimeLayoutStyles.isLoading}>
                     <CircularProgress />
                   </div>
                 ) : (
@@ -212,32 +193,19 @@ export default function PrayerTimeLayout() {
                                   <span key={index}>
                                     {" "}
                                     <div
-                                      style={{
-                                        backgroundColor: "white",
-                                        display: "inline-flex",
-                                        flexDirection: "column" as "column",
-                                        width: isDesktopScreen
-                                          ? "10rem"
-                                          : "6rem",
-                                        color: "#393E46",
-                                        cursor: "pointer",
-                                        rowGap: "5px",
-                                        padding: isDesktopScreen
-                                          ? "25px"
-                                          : "28px",
-                                        alignItems: "center",
-                                        height: "4rem",
-                                        fontSize: "20px",
-                                        margin: isDesktopScreen
-                                          ? "14px"
-                                          : "15px",
-                                      }}
-                                      className={Font.city}
+                                      style={
+                                        PrayerTimeLayoutStyles.prayerTimeLayout
+                                      }
+                                      className={Font.montFont}
                                       onMouseEnter={(e) =>
-                                        CardMouseEnter(e, index, "fistPhase")
+                                        handleOnMouseEnter(
+                                          e,
+                                          index,
+                                          "firstPhasePrayer"
+                                        )
                                       }
                                       onMouseLeave={() =>
-                                        CardMouseLeave("fistPhase")
+                                        handleOnMouseLeave("firstPhasePrayer")
                                       }
                                     >
                                       <div
@@ -251,12 +219,12 @@ export default function PrayerTimeLayout() {
                                         <div
                                           style={{
                                             color:
-                                              CardHover == index
-                                                ? prayerTimeColor(item.slot)
+                                              firstPhasePrayerHover == index
+                                                ? prayerTimeColor(item.prayer)
                                                 : "rgb(0, 0, 0)",
                                           }}
                                         >
-                                          {PrayerTimeImage[item.slot]}{" "}
+                                          {prayerTimeIcon[item.prayer]}{" "}
                                         </div>
                                         <div
                                           style={{
@@ -264,27 +232,21 @@ export default function PrayerTimeLayout() {
                                             marginLeft: "8px",
                                           }}
                                         >
-                                          {item.slot}
+                                          {item.prayer}
                                         </div>
                                       </div>
                                       <div
-                                        className={Font.hourfont}
+                                        className={Font.robotoFont}
                                         style={{
                                           display: "flex",
                                           flexDirection: "row",
                                         }}
                                       >
                                         <div>
-                                          {
-                                            prayerTwelveHourFormat(item.time)
-                                              .hour
-                                          }
+                                          {prayerTimePeriod(item.time).hour}
                                         </div>
                                         <div style={{ marginLeft: "8px" }}>
-                                          {
-                                            prayerTwelveHourFormat(item.time)
-                                              .period
-                                          }
+                                          {prayerTimePeriod(item.time).period}
                                         </div>
                                       </div>
                                     </div>
@@ -298,9 +260,9 @@ export default function PrayerTimeLayout() {
                     ) : (
                       <div>
                         <PrayerTimeList
-                          PrayerTimeImage={PrayerTimeImage}
+                          prayerTimeIcon={prayerTimeIcon}
                           firstPhasePrayerTime={firstPhasePrayerTime}
-                          prayerTwelveHourFormat={prayerTwelveHourFormat}
+                          prayerTimePeriod={prayerTimePeriod}
                         />
                       </div>
                     )}
@@ -319,28 +281,19 @@ export default function PrayerTimeLayout() {
                                 <span key={index}>
                                   {" "}
                                   <div
-                                    style={{
-                                      backgroundColor: "white",
-                                      display: "inline-flex",
-                                      flexDirection: "column" as "column",
-                                      width: isDesktopScreen ? "10rem" : "6rem",
-                                      color: "#393E46",
-                                      cursor: "pointer",
-                                      rowGap: "5px",
-                                      padding: isDesktopScreen
-                                        ? "25px"
-                                        : "28px",
-                                      alignItems: "center",
-                                      height: "4rem",
-                                      fontSize: "20px",
-                                      margin: isDesktopScreen ? "14px" : "8px",
-                                    }}
-                                    className={Font.city}
+                                    style={
+                                      PrayerTimeLayoutStyles.prayerTimeLayout
+                                    }
+                                    className={Font.montFont}
                                     onMouseEnter={(e) =>
-                                      CardMouseEnter(e, index, "secondphase")
+                                      handleOnMouseEnter(
+                                        e,
+                                        index,
+                                        "secondPhasePrayer"
+                                      )
                                     }
                                     onMouseLeave={() =>
-                                      CardMouseLeave("secondphase")
+                                      handleOnMouseLeave("secondPhasePrayer")
                                     }
                                   >
                                     <div
@@ -354,12 +307,12 @@ export default function PrayerTimeLayout() {
                                       <div
                                         style={{
                                           color:
-                                            secondCardHover == index
-                                              ? prayerTimeColor(item.slot)
+                                            secodPhasePrayerHover == index
+                                              ? prayerTimeColor(item.prayer)
                                               : "rgb(0, 0, 0)",
                                         }}
                                       >
-                                        {PrayerTimeImage[item.slot]}{" "}
+                                        {prayerTimeIcon[item.prayer]}{" "}
                                       </div>
                                       <div
                                         style={{
@@ -367,24 +320,21 @@ export default function PrayerTimeLayout() {
                                           marginLeft: "8px",
                                         }}
                                       >
-                                        {item.slot}
+                                        {item.prayer}
                                       </div>
                                     </div>
                                     <div
-                                      className={Font.hourfont}
+                                      className={Font.robotoFont}
                                       style={{
                                         display: "flex",
                                         flexDirection: "row",
                                       }}
                                     >
                                       <div>
-                                        {prayerTwelveHourFormat(item.time).hour}
+                                        {prayerTimePeriod(item.time).hour}
                                       </div>
                                       <div style={{ marginLeft: "8px" }}>
-                                        {
-                                          prayerTwelveHourFormat(item.time)
-                                            .period
-                                        }
+                                        {prayerTimePeriod(item.time).period}
                                       </div>
                                     </div>
                                   </div>

@@ -2,12 +2,12 @@
 import { usePathname } from "next/navigation";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
 
-let CityCardHeight: string;
-let CityCardMarginTop: string;
 const TimeZoneStyle = () => {
   const { isDesktopScreen, isTabletScreen } = useApplicationContext();
   const currentPath = usePathname();
 
+  let CityCardHeight = "";
+  let CityCardMarginTop = "";
   if (currentPath == "/") {
     if (isDesktopScreen) {
       CityCardHeight = "36rem";
@@ -21,26 +21,20 @@ const TimeZoneStyle = () => {
       CityCardHeight = "31rem";
       CityCardMarginTop = "-9px";
     } else {
-      CityCardHeight = "36rem";
+      CityCardHeight = "28rem";
       CityCardMarginTop = "0rem";
     }
   }
 
-  const timeZoneStyle = {
-    cityFlex: {
-      display: "flex",
-      flexDirection: "row" as "row",
-      justifyContent: "center",
-      color: "#393E46",
-    },
+  const TimeZoneStyle = {
     cityTime: {
-      fontSize: isDesktopScreen ? (isTabletScreen ? "8rem" : "10rem") : "4rem",
+      fontSize: isDesktopScreen ? (isTabletScreen ? "8rem" : "10rem") : "58px",
       display: "flex",
       lineHeight: isDesktopScreen ? "11rem" : "8rem",
       flexDirection: "row" as "row",
       justifyContent: isDesktopScreen ? "center" : "flex-end",
     },
-    hourFormat: {
+    cityPeriod: {
       fontSize: isDesktopScreen ? "3rem" : "2rem",
       display: "flex",
       flexDirection: "column" as "column",
@@ -87,7 +81,7 @@ const TimeZoneStyle = () => {
       color: "#393E46",
       marginLeft: isDesktopScreen ? "-32px" : "0",
     },
-    hourFormatGrid: {
+    cityHour: {
       display: "grid",
       gridTemplateColumns: isDesktopScreen ? "81%  10%" : "auto auto",
       columnGap: "10px",
@@ -95,7 +89,7 @@ const TimeZoneStyle = () => {
     },
   };
 
-  return timeZoneStyle;
+  return TimeZoneStyle;
 };
 
 export default TimeZoneStyle;
