@@ -9,7 +9,7 @@ import {
   TimeListsType,
 } from "@/app/interface/commonInterface";
 import { usePathname } from "next/navigation";
-import { currentCityTime } from "@/app/lib/lib";
+import { CurrentCityTime } from "@/app/lib/lib";
 
 export default function CountryTime(props: TimeListsType) {
   const { timeLists } = props;
@@ -99,10 +99,10 @@ export default function CountryTime(props: TimeListsType) {
                           fontSize: "18px",
                         }}
                       >
-                        <div>{currentCityTime(timeZone).hour}</div>
+                        <div>{CurrentCityTime(timeZone).hour}</div>
                         <div style={{ marginLeft: "5px" }}>
                           {" "}
-                          {currentCityTime(timeZone).period}
+                          {CurrentCityTime(timeZone).period}
                         </div>
                       </div>
                     </div>

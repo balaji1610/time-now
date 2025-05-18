@@ -16,7 +16,7 @@ export const prayerNames = [
   "Sunset",
 ];
 
-export const cityTime = () => {
+export const CityTime = () => {
   const { timeZone, time } = useApplicationContext();
 
   const Timeoptions = {
@@ -38,7 +38,7 @@ export const cityTime = () => {
   };
 };
 
-export const cityDate = () => {
+export const CityDate = () => {
   const { timeZone, time } = useApplicationContext();
 
   const DateOptions = {
@@ -52,7 +52,7 @@ export const cityDate = () => {
   ).format(time);
 };
 
-export const regionalDate = () => {
+export const RegionalDate = () => {
   const { timeZone, time } = useApplicationContext();
 
   const DateOptions = {
@@ -94,7 +94,7 @@ export const prayerTimePeriod = (prayersTime: string) => {
   };
 };
 
-export const currentCityTime = (city: string) => {
+export const CurrentCityTime = (city: string) => {
   const { time } = useApplicationContext();
 
   const dateTimeFormat = new Intl.DateTimeFormat("en-GB", {

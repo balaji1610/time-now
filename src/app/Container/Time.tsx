@@ -4,12 +4,12 @@ import React, { useEffect } from "react";
 import Font from "@/app/page.module.css";
 import TimeZone from "@/app/Style/TimeZoneStyle";
 import { useApplicationContext } from "@/app/Context/ApplicationContext";
-import { cityTime, cityDate, regionalDate } from "@/app/lib/lib";
+import { CityTime, CityDate, RegionalDate } from "@/app/lib/lib";
 
 export default function Time() {
   const timeZoneStyle = TimeZone();
   const { setTime, currentTimeDate } = useApplicationContext();
-  const { hour, period } = cityTime();
+  const { hour, period } = CityTime();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,11 +39,11 @@ export default function Time() {
       <div className={Font.montFont} style={timeZoneStyle.dateLayout}>
         <div>
           {" "}
-          <h3 style={timeZoneStyle.date}>{cityDate()}</h3>
+          <h3 style={timeZoneStyle.date}>{CityDate()}</h3>
         </div>
         <div>
           {" "}
-          <h5     style={timeZoneStyle.regionaldate}>{regionalDate()}</h5>
+          <h5     style={timeZoneStyle.regionaldate}>{RegionalDate()}</h5>
         </div>
       </div>
     </div>
