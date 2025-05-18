@@ -30,7 +30,7 @@ export default function Sidebar() {
       [x: string]: string;
     } = {
       HOME: "/",
-      "PRAYER TIME": "/prayer-time",
+      "PRAYER TIME": "/prayertime",
     };
     router.push(routering[currentRoute as string]);
   };
