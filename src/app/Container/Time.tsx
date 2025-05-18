@@ -43,7 +43,7 @@ export default function Time() {
         </div>
         <div>
           {" "}
-          <h5 style={timeZoneStyle.regionaldate}>{regionalDate()}</h5>
+          <h5     style={timeZoneStyle.regionaldate}>{regionalDate()}</h5>
         </div>
       </div>
     </div>
